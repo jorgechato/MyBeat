@@ -1,0 +1,151 @@
+package org.jorgechato.mybeat.fragments;
+
+import android.app.ListFragment;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.jorgechato.mybeat.Adapter.HospitalAdapter;
+import org.jorgechato.mybeat.R;
+import org.jorgechato.mybeat.base.Hospital;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+public class HospitalListFragment extends Fragment implements AdapterView.OnClickListener{
+    private ListView listView;
+    private ArrayList<Hospital> arrayListHospital;
+    private HospitalAdapter adapter;
+
+    private static final String URL = "http://datos.gijon.es/doc/salud/centros-sanitarios.json";
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup group,
+                             Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.fragment_hospital_list,group,false);
+
+        listView = (ListView) view.findViewById(R.id.listViewHospital);
+        //listView.setOnItemClickListener(this);
+        arrayListHospital = new ArrayList<Hospital>();
+        adapter = new HospitalAdapter(getActivity(),R.layout.activity_hospital_adapter,arrayListHospital);
+        listView.setAdapter(adapter);
+
+        loadHospital();
+
+        return view;
+    }
+
+    public void loadHospital(){
+        ThreadDownloadData threadData = new ThreadDownloadData();
+        threadData.execute(URL);
+    }
+
+    public class ThreadDownloadData extends AsyncTask<String,Void,Void>{
+        private boolean error = false;
+
+        @Override
+        protected Void doInBackground(String... params) {
+            InputStream inputStream = null;
+            String results = null;
+            JSONObject jsonObject = null;
+            JSONArray jsonArray = null;
+
+            try {
+                HttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(params[0]);
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                inputStream = httpEntity.getContent();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder builder = new StringBuilder();
+                String line = null;
+
+                while ((line = reader.readLine()) != null)
+                    builder.append(line + "\n");
+
+                inputStream.close();
+                results = builder.toString();
+
+                jsonObject = new JSONObject(results);
+                jsonArray = jsonObject.getJSONObject("directorios").getJSONArray("directorio");
+
+                String name = null,timetable = null,phone = null,description = null,email = null,
+                        map = null,direction = null, image = null;
+                Hospital hospital = null;
+
+                for (int i = 0; i<jsonArray.length() ; i++){
+                    email = jsonArray.getJSONObject(i).getString("correo-electronico");
+                    //description = jsonArray.getJSONObject(i).getJSONObject("descripcion").getString("content");
+                    //direction = jsonArray.getJSONObject(i).getString("correo-electronico");
+                    //image = jsonArray.getJSONObject(i).getJSONObject("foto").getString("content");
+                    timetable = jsonArray.getJSONObject(i).getString("horario");
+                    //map = jsonArray.getJSONObject(i).getJSONObject("localizacion").getString("content");
+                    name = jsonArray.getJSONObject(i).getJSONObject("nombre").getString("content");
+                    //phone = jsonArray.getJSONObject(i).getJSONObject("telefono").getString("content");
+
+                    hospital = new Hospital(name,timetable,"phone","description"+i+1,"direccion"+i+1,email,"map","image",0,0);
+                    arrayListHospital.add(hospital);
+                }
+
+            }catch (ClientProtocolException e) {
+                e.printStackTrace();
+                error = true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                error = true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                error = true;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            adapter.clear();
+            //arrayListHospital = new ArrayList<>();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... progress) {
+            super.onProgressUpdate(progress);
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (error) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.error_load_json), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            adapter.notifyDataSetChanged();
+            Toast.makeText(getActivity(), getResources().getString(R.string.json_loaded), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void onClick(View view){
+
+    }
+}

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,11 +53,6 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
 
             res = new ResourceHospital();
             res.imageView = (ImageView) row.findViewById(R.id.imageView);
-            try {
-                res.imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)new URL(objects.get(position).getImage()).getContent()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             res.name = (TextView) row.findViewById(R.id.hospitalName);
             res.direction = (TextView) row.findViewById(R.id.hospitalDirection);
 
@@ -67,11 +63,7 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
 
         Hospital hospital = objects.get(position);
         //res.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_launcher));
-        try {
-            res.imageView.setImageBitmap(BitmapFactory.decodeStream((InputStream)new URL(objects.get(position).getImage()).getContent()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        res.imageView.setImageBitmap(objects.get(position).getImage());
         res.name.setText(hospital.getName());
         res.direction.setText(hospital.getDirection());
 

@@ -13,5 +13,9 @@
     <string name="title_activity_hospital_adapter">HospitalAdapter</string>
     <string name="title_activity_item_hospital">ItemHospital</string>
     <string name="description">DESCRIPCIÓN</string>
+    <string name="phone">TELÉFONO</string>
+    <string name="timetable">HORARIO</string>
+    <string name="email">CORREO ELECTRÓNICO</string>
+    <string name="direction">DIRECCIÓN</string>
 
 </resources>

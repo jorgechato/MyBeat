@@ -1,4 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@+id/imageSmall" >
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="0dp"
     android:paddingRight="0dp"
@@ -22,12 +26,165 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp" />
-
+    <!--1-->
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_below="@+id/imageSmall"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"
+        android:text="@string/timetable"
+        android:id="@+id/timetable"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:id="@+id/separator0"
+        android:layout_below="@+id/timetable"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:visibility="visible"
+        android:background="@drawable/border"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16dp"
+        android:text="timetable"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:id="@+id/txttimetable"
+        android:layout_below="@+id/separator0"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+    <!--2-->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/txttimetable"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"
+        android:text="@string/phone"
+        android:id="@+id/phone"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:id="@+id/separator1"
+        android:layout_below="@+id/phone"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:visibility="visible"
+        android:background="@drawable/border"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16dp"
+        android:text="phone"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:id="@+id/txtphone"
+        android:layout_below="@+id/separator1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+    <!--3-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/txtphone"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"
+        android:text="@string/email"
+        android:id="@+id/email"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:id="@+id/separator2"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:visibility="visible"
+        android:background="@drawable/border"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16dp"
+        android:text="email"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:id="@+id/txtemail"
+        android:layout_below="@+id/separator2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+    <!--3-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/txtemail"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"
+        android:text="@string/direction"
+        android:id="@+id/direction"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:id="@+id/separator3"
+        android:layout_below="@+id/direction"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:visibility="visible"
+        android:background="@drawable/border"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16dp"
+        android:text="@string/direction"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:id="@+id/txtdirection"
+        android:layout_below="@+id/separator3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
+    <!--4-->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/txtdirection"
         android:layout_marginTop="15dp"
         android:textSize="18dp"
         android:text="@string/description"
@@ -37,6 +194,17 @@
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:id="@+id/separator"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:visibility="visible"
+        android:background="@drawable/border"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,9 +212,11 @@
         android:textSize="16dp"
         android:text="description"
         android:layout_marginRight="25dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginLeft="25dp"
         android:id="@+id/txtDescription"
-        android:layout_below="@+id/description"
+        android:layout_below="@+id/separator"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp" />
 </RelativeLayout>
+</ScrollView>

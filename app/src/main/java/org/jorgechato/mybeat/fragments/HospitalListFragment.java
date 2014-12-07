@@ -64,7 +64,6 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), arrayListHospital.get(position).getName(), Toast.LENGTH_SHORT).show();
         if (position == ListView.INVALID_POSITION)
             return;
 
@@ -73,6 +72,10 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
         Intent intent = new Intent(getActivity(), ItemHospital.class);
         intent.putExtra("image",hospital.getImage());
         intent.putExtra("name",hospital.getName());
+        intent.putExtra("timetable",hospital.getTimetable());
+        intent.putExtra("phone",hospital.getPhone());
+        intent.putExtra("email",hospital.getEmail());
+        intent.putExtra("direction",hospital.getDirection());
         intent.putExtra("description",hospital.getDescription());
         startActivity(intent);
     }

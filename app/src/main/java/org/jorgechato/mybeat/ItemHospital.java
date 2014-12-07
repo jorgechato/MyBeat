@@ -25,6 +25,10 @@ public class ItemHospital extends Activity {
         name = intent.getStringExtra("name");
         image = (Bitmap) intent.getParcelableExtra("image");
         description = intent.getStringExtra("description");
+        timetable = intent.getStringExtra("timetable");
+        phone = intent.getStringExtra("phone");
+        email = intent.getStringExtra("email");
+        direction = intent.getStringExtra("direction");
 
         actionBar.setTitle(name);
         init();
@@ -34,17 +38,24 @@ public class ItemHospital extends Activity {
         ImageView imageSmall = (ImageView) findViewById(R.id.imageSmall);
         ImageView imageBackgrount = (ImageView) findViewById(R.id.imageBackground);
         TextView textdescription = (TextView) findViewById(R.id.txtDescription);
+        TextView texttimetable = (TextView) findViewById(R.id.txttimetable);
+        TextView textphone = (TextView) findViewById(R.id.txtphone);
+        TextView textdirection = (TextView) findViewById(R.id.txtdirection);
+        TextView textemail = (TextView) findViewById(R.id.txtemail);
 
         imageSmall.setImageBitmap(image);
         imageBackgrount.setImageBitmap(image);
         textdescription.setText(description);
+        textdirection.setText(direction);
+        texttimetable.setText(timetable);
+        textphone.setText(phone);
+        textemail.setText(email);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; goto parent activity.
                 this.finish();
                 return true;
             default:

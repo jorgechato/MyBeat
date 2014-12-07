@@ -1,5 +1,6 @@
 package org.jorgechato.mybeat.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jorgechato.mybeat.Adapter.HospitalAdapter;
+import org.jorgechato.mybeat.ItemHospital;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.base.Hospital;
 import org.json.JSONArray;
@@ -63,6 +65,16 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), arrayListHospital.get(position).getName(), Toast.LENGTH_SHORT).show();
+        if (position == ListView.INVALID_POSITION)
+            return;
+
+        Hospital hospital = arrayListHospital.get(position);
+
+        Intent intent = new Intent(getActivity(), ItemHospital.class);
+        intent.putExtra("image",hospital.getImage());
+        intent.putExtra("name",hospital.getName());
+        intent.putExtra("description",hospital.getDescription());
+        startActivity(intent);
     }
 
     public class ThreadDownloadData extends AsyncTask<String,Void,Void>{

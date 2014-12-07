@@ -11,5 +11,7 @@
     <string name="error_load_json">Error al cargar datos</string>
     <string name="json_loaded">Datos cargados</string>
     <string name="title_activity_hospital_adapter">HospitalAdapter</string>
+    <string name="title_activity_item_hospital">ItemHospital</string>
+    <string name="description">DESCRIPCIÓN</string>
 
 </resources>

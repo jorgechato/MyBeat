@@ -21,6 +21,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pkmmte.view.CircularImageView;
+
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.base.Hospital;
 
@@ -43,7 +45,7 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
     }
 
     static class ResourceHospital{
-        ImageView imageView;
+        CircularImageView imageView;
         TextView name;
         TextView direction;
     }
@@ -56,9 +58,10 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
         if (res == null){
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutId,group,false);
-
             res = new ResourceHospital();
-            res.imageView = (ImageView) row.findViewById(R.id.imageView);
+
+            res.imageView = (CircularImageView) row.findViewById(R.id.imageView);
+
             res.name = (TextView) row.findViewById(R.id.hospitalName);
             res.direction = (TextView) row.findViewById(R.id.hospitalDirection);
 
@@ -68,37 +71,10 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
         }
 
         Hospital hospital = objects.get(position);
-        res.imageView.setImageBitmap(getRoundedCornerBitmap(objects.get(position).getImage()));
+        res.imageView.setImageBitmap(objects.get(position).getImage());
         res.name.setText(hospital.getName());
         res.direction.setText(hospital.getDirection());
 
         return row;
-    }
-
-    /**
-     * methon from http://ruibm.com/2009/06/16/rounded-corner-bitmaps-on-android/
-     * @param bitmap
-     * @return
-     */
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = 1000;
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
     }
 }

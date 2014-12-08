@@ -20,7 +20,11 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.text.Html;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.melnykov.fab.FloatingActionButton;
+import com.pkmmte.view.CircularImageView;
 
 public class ItemHospital extends Activity {
     private String name,timetable,phone,description,email,direction;
@@ -43,11 +47,20 @@ public class ItemHospital extends Activity {
         direction = intent.getStringExtra("direction");
 
         actionBar.setTitle(name);
+
+        ScrollView scroll = (ScrollView) findViewById(R.id.scroll);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.attachToScrollView((com.melnykov.fab.ObservableScrollView) scroll);
+
         init();
     }
 
     private void init() {
-        ImageView imageSmall = (ImageView) findViewById(R.id.imageSmall);
+        CircularImageView imageSmall = (CircularImageView) findViewById(R.id.imageSmall);
+        imageSmall.setBorderColor(getResources().getColor(R.color.GrayLight));
+        imageSmall.setBorderWidth(8);
+        imageSmall.addShadow();
+
         ImageView imageBackgrount = (ImageView) findViewById(R.id.imageBackground);
         TextView textdescription = (TextView) findViewById(R.id.txtDescription);
         TextView texttimetable = (TextView) findViewById(R.id.txttimetable);
@@ -55,7 +68,7 @@ public class ItemHospital extends Activity {
         TextView textdirection = (TextView) findViewById(R.id.txtdirection);
         TextView textemail = (TextView) findViewById(R.id.txtemail);
 
-        imageSmall.setImageBitmap(getRoundedCornerBitmap(image));
+        imageSmall.setImageBitmap(image);
         imageBackgrount.setImageBitmap(blurBitmap(image));
         textdescription.setText(Html.fromHtml(description));
         textdirection.setText(direction);
@@ -100,33 +113,6 @@ public class ItemHospital extends Activity {
         rs.destroy();
 
         return outBitmap;
-    }
-
-    /**
-     * methon from http://ruibm.com/2009/06/16/rounded-corner-bitmaps-on-android/
-     * @param bitmap
-     * @return
-     */
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
-                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-        final float roundPx = 1000;
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
     }
 
 }

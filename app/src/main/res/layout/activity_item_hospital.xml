@@ -1,13 +1,27 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_below="@+id/imageSmall" >
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     android:paddingBottom="0dp"
+    android:orientation="vertical"
+    android:id="@+id/layoutPa"
+    tools:context="org.jorgechato.mybeat.ItemHospital">
+<com.melnykov.fab.ObservableScrollView
+    android:id="@+id/scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:orientation="vertical"
+    android:id="@+id/layoutSon"
     tools:context="org.jorgechato.mybeat.ItemHospital">
 
     <ImageView
@@ -16,16 +30,22 @@
         android:scaleType="centerCrop"
         android:id="@+id/imageBackground"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="false" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <com.pkmmte.view.CircularImageView
+        android:layout_width="115dp"
+        android:layout_height="115dp"
         android:id="@+id/imageSmall"
-        android:background="@drawable/ripple"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="109dp" />
+        android:layout_marginTop="109dp"
+        app:border="true"
+        app:border_color="#EEEEEE"
+        app:border_width="4dp"
+        app:selector_stroke_width="4dp"
+        app:shadow="true"
+        android:layout_alignParentLeft="false" />
     <!--1-->
     <TextView
         android:layout_width="fill_parent"
@@ -36,7 +56,6 @@
         android:textSize="18dp"
         android:text="@string/timetable"
         android:id="@+id/timetable"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp" />
@@ -75,7 +94,6 @@
         android:textSize="18dp"
         android:text="@string/phone"
         android:id="@+id/phone"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp" />
@@ -114,7 +132,6 @@
         android:textSize="18dp"
         android:text="@string/email"
         android:id="@+id/email"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp" />
@@ -152,7 +169,6 @@
         android:textSize="18dp"
         android:text="@string/direction"
         android:id="@+id/direction"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp" />
@@ -190,7 +206,6 @@
         android:textSize="18dp"
         android:text="@string/description"
         android:id="@+id/description"
-        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp" />
@@ -219,5 +234,22 @@
         android:layout_below="@+id/separator"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp" />
+
+
 </RelativeLayout>
-</ScrollView>
+
+</com.melnykov.fab.ObservableScrollView>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/pin"
+        android:layout_gravity="bottom|right"
+        fab:fab_colorNormal="@color/accent"
+        fab:fab_colorPressed="@color/accent"
+        fab:fab_colorRipple="@color/GrayLight"
+        fab:fab_shadow="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

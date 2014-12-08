@@ -19,8 +19,8 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/imageSmall"
         android:background="@drawable/ripple"
         android:layout_alignParentTop="true"
@@ -43,7 +43,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:id="@+id/separator0"
         android:layout_below="@+id/timetable"
         android:layout_marginTop="8dp"
@@ -82,7 +82,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:id="@+id/separator1"
         android:layout_below="@+id/phone"
         android:layout_marginTop="8dp"
@@ -95,7 +95,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="16dp"
+        android:textSize="20dp"
+        android:textColor="@color/primary"
         android:text="phone"
         android:layout_marginRight="25dp"
         android:layout_marginLeft="25dp"
@@ -120,7 +121,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:id="@+id/separator2"
         android:layout_below="@+id/email"
         android:layout_marginTop="8dp"
@@ -158,7 +159,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:id="@+id/separator3"
         android:layout_below="@+id/direction"
         android:layout_marginTop="8dp"
@@ -196,7 +197,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:id="@+id/separator"
         android:layout_below="@+id/description"
         android:layout_marginTop="8dp"

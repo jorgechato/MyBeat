@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class HospitalListFragment extends Fragment implements AdapterView.OnItemClickListener{
@@ -122,6 +123,8 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                         description = jsonArray.getJSONObject(i).getJSONObject("descripcion").getString("content");
                     direction = jsonArray.getJSONObject(i).getJSONArray("direccion").getString(0);
                     timetable = jsonArray.getJSONObject(i).getString("horario");
+                    if (timetable.equals("{}"))
+                        timetable = getResources().getString(R.string.no_timetable);
                     if (!jsonArray.getJSONObject(i).getJSONObject("localizacion").isNull("content")){
                         map = jsonArray.getJSONObject(i).getJSONObject("localizacion").getString("content");
                         String mapLocate[] = map.split(" ");
@@ -136,12 +139,16 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                         connection.setDoInput(true);
                         connection.connect();
                         InputStream input = connection.getInputStream();
-                        image = BitmapFactory.decodeStream(input);
+                        Bitmap output = BitmapFactory.decodeStream(input);
+                        image = Bitmap.createScaledBitmap(output, 250, 250, false);
                     }
-                    if (!jsonArray.getJSONObject(i).getJSONObject("telefono").isNull("content"))
+                    if (!jsonArray.getJSONObject(i).getJSONObject("telefono").isNull("content")){
                         phone = jsonArray.getJSONObject(i).getJSONObject("telefono").getString("content");
+                    }else {
+                        phone = getResources().getString(R.string.no_phone);
+                    }
 
-                    hospital = new Hospital(name,timetable,phone,description,direction,email,image,longitude,latitude);
+                    hospital = new Hospital(name,timetable,phone,description,direction, URLDecoder.decode(email),image,longitude,latitude);
                     arrayListHospital.add(hospital);
                 }
 

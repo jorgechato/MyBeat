@@ -17,5 +17,7 @@
     <string name="timetable">HORARIO</string>
     <string name="email">CORREO ELECTRÓNICO</string>
     <string name="direction">DIRECCIÓN</string>
+    <string name="no_timetable">No hay datos del horario</string>
+    <string name="no_phone">No hay teléfonos registrados</string>
 
 </resources>

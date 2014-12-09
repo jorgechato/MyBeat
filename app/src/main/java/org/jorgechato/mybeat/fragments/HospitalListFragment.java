@@ -78,6 +78,10 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
         intent.putExtra("email",hospital.getEmail());
         intent.putExtra("direction",hospital.getDirection());
         intent.putExtra("description",hospital.getDescription());
+
+        intent.putExtra("longitude",hospital.getLongitude());
+        intent.putExtra("latitude",hospital.getLatitude());
+
         startActivity(intent);
     }
 
@@ -139,8 +143,7 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                         connection.setDoInput(true);
                         connection.connect();
                         InputStream input = connection.getInputStream();
-                        Bitmap output = BitmapFactory.decodeStream(input);
-                        image = Bitmap.createScaledBitmap(output, 250, 250, false);
+                        image = BitmapFactory.decodeStream(input);
                     }
                     if (!jsonArray.getJSONObject(i).getJSONObject("telefono").isNull("content")){
                         phone = jsonArray.getJSONObject(i).getJSONObject("telefono").getString("content");

@@ -245,7 +245,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/pin"
-        android:layout_gravity="bottom|right"
+        android:onClick="onClick"
         fab:fab_colorNormal="@color/accent"
         fab:fab_colorPressed="@color/accent"
         fab:fab_colorRipple="@color/GrayLight"

@@ -5,28 +5,4 @@
     android:paddingTop="0dp"
     android:paddingBottom="0dp" tools:context=".MainActivity"
     android:id="@+id/containerActivity">
-<!--
-    <fragment
-        android:name="org.jorgechato.mybeat.fragments.ProfileFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/fragment_profile"/>
-
-    <fragment
-        android:name="org.jorgechato.mybeat.fragments.MapFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/fragment_map"/>
-
-    <fragment
-        android:name="org.jorgechato.mybeat.fragments.HospitalListFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/fragment_hospital"/>
-
-    <fragment
-        android:name="org.jorgechato.mybeat.fragments.CommentsFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/fragment_comments"/>-->
 </RelativeLayout>

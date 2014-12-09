@@ -36,6 +36,10 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
     private Context context;
     private List<Hospital> objects;
 
+    public HospitalAdapter(){
+        super(null,0);
+    }
+
     public HospitalAdapter(Context context, int layoutId, List<Hospital> objects) {
         super(context, layoutId, objects);
 

@@ -4,14 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Shader;
 import android.os.Bundle;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -19,16 +11,19 @@ import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.pkmmte.view.CircularImageView;
 
-public class ItemHospital extends Activity {
+public class ItemHospital extends Activity implements View.OnClickListener{
     private String name,timetable,phone,description,email,direction;
     private Bitmap image;
+    private float longitude,latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +40,8 @@ public class ItemHospital extends Activity {
         phone = intent.getStringExtra("phone");
         email = intent.getStringExtra("email");
         direction = intent.getStringExtra("direction");
+        longitude = intent.getFloatExtra("longitude", 0);
+        latitude = intent.getFloatExtra("latitude", 0);
 
         actionBar.setTitle(name);
 
@@ -115,4 +112,13 @@ public class ItemHospital extends Activity {
         return outBitmap;
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("name",name);
+        intent.putExtra("longitude",longitude);
+        intent.putExtra("latitude",latitude);
+
+        startActivity(intent);
+    }
 }

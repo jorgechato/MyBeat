@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 
 import org.jorgechato.mybeat.R;
 
-public class MapFragment extends Fragment {
+public class ControlFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group,
                              Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_map,group,false);
+        View view = inflater.inflate(R.layout.fragment_control,group,false);
         return view;
     }
 

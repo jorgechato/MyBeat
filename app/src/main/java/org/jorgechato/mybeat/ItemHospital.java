@@ -15,14 +15,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.pkmmte.view.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 public class ItemHospital extends Activity implements View.OnClickListener{
-    private String name,timetable,phone,description,email,direction;
-    private Bitmap image;
+    private String name,timetable,phone,description,email,direction,imageURL;
     private float longitude,latitude;
 
     @Override
@@ -34,7 +33,7 @@ public class ItemHospital extends Activity implements View.OnClickListener{
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
-        image = (Bitmap) intent.getParcelableExtra("image");
+        imageURL = intent.getStringExtra("image");
         description = intent.getStringExtra("description");
         timetable = intent.getStringExtra("timetable");
         phone = intent.getStringExtra("phone");
@@ -59,14 +58,17 @@ public class ItemHospital extends Activity implements View.OnClickListener{
         imageSmall.addShadow();
 
         ImageView imageBackgrount = (ImageView) findViewById(R.id.imageBackground);
+        //todo blurBitmap
+        Picasso.with(this).setDebugging(true);
+        Picasso.with(this).load(imageURL).into(imageBackgrount);
+        Picasso.with(this).load(imageURL).into(imageSmall);
+
         TextView textdescription = (TextView) findViewById(R.id.txtDescription);
         TextView texttimetable = (TextView) findViewById(R.id.txttimetable);
         TextView textphone = (TextView) findViewById(R.id.txtphone);
         TextView textdirection = (TextView) findViewById(R.id.txtdirection);
         TextView textemail = (TextView) findViewById(R.id.txtemail);
 
-        imageSmall.setImageBitmap(image);
-        imageBackgrount.setImageBitmap(blurBitmap(image));
         textdescription.setText(Html.fromHtml(description));
         textdirection.setText(direction);
         texttimetable.setText(timetable);

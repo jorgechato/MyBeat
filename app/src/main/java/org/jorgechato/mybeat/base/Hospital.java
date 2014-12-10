@@ -1,25 +1,20 @@
 package org.jorgechato.mybeat.base;
 
-import android.graphics.Bitmap;
-import android.media.Image;
-
 /**
  * Created by jorge on 5/12/14.
  */
 public class Hospital {
-    //private Image image;
-    private String name,timetable,phone,description,email,direction;
-    private Bitmap image;
+    private String name,timetable,phone,description,email,direction,imageURL;
     private float longitude,latitude;
 
-    public Hospital(String name, String timetable, String phone, String description, String direction, String email, Bitmap image, float longitude, float latitude) {
+    public Hospital(String name, String timetable, String phone, String description, String direction, String email, String imageURL, float longitude, float latitude) {
         this.name = name;
         this.timetable = timetable;
         this.phone = phone;
         this.description = description;
         this.direction = direction;
         this.email = email;
-        this.image = image;
+        this.imageURL = imageURL;
         this.longitude = longitude;
         this.latitude = latitude;
     }
@@ -72,12 +67,12 @@ public class Hospital {
         this.email = email;
     }
 
-    public Bitmap getImage() {
-        return image;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public float getLongitude() {

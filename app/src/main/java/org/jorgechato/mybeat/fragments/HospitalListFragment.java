@@ -1,8 +1,6 @@
 package org.jorgechato.mybeat.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -31,8 +29,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 
@@ -71,7 +67,7 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
         Hospital hospital = arrayListHospital.get(position);
 
         Intent intent = new Intent(getActivity(), ItemHospital.class);
-        intent.putExtra("image",hospital.getImage());
+        intent.putExtra("image",hospital.getImageURL());
         intent.putExtra("name",hospital.getName());
         intent.putExtra("timetable",hospital.getTimetable());
         intent.putExtra("phone",hospital.getPhone());
@@ -116,9 +112,8 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                 jsonArray = jsonObject.getJSONObject("directorios").getJSONArray("directorio");
 
                 String name = null,timetable = null,phone = null,description = null,email = null,
-                        map = null,direction = null;
+                        map = null,direction = null,imageURL = null;
                 float longitude = -1,latitude = -1;
-                Bitmap image = null;
                 Hospital hospital = null;
 
                 for (int i = 0; i<jsonArray.length() ; i++){
@@ -137,13 +132,7 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                     }
                     name = jsonArray.getJSONObject(i).getJSONObject("nombre").getString("content");
                     if (!jsonArray.getJSONObject(i).isNull("foto")){
-                        String imageURL = jsonArray.getJSONObject(i).getJSONObject("foto").optString("content");
-                        URL url = new URL(imageURL);
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setDoInput(true);
-                        connection.connect();
-                        InputStream input = connection.getInputStream();
-                        image = BitmapFactory.decodeStream(input);
+                        imageURL = jsonArray.getJSONObject(i).getJSONObject("foto").optString("content");
                     }
                     if (!jsonArray.getJSONObject(i).getJSONObject("telefono").isNull("content")){
                         phone = jsonArray.getJSONObject(i).getJSONObject("telefono").getString("content");
@@ -151,7 +140,7 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                         phone = getResources().getString(R.string.no_phone);
                     }
 
-                    hospital = new Hospital(name,timetable,phone,description,direction, URLDecoder.decode(email),image,longitude,latitude);
+                    hospital = new Hospital(name,timetable,phone,description,direction, URLDecoder.decode(email),imageURL,longitude,latitude);
                     arrayListHospital.add(hospital);
                 }
 

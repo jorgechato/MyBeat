@@ -56,9 +56,6 @@ public class Settings extends Activity implements View.OnClickListener {
                 break;
             case R.id.saveprofile:
                 image = mAttacher.getVisibleRectangleBitmap();
-
-                ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
-                imageView2.setImageBitmap(image);
                 break;
             default:
                 break;

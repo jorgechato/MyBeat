@@ -1,4 +1,4 @@
-package org.jorgechato.mybeat.Adapter;
+package org.jorgechato.mybeat.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.base.Hospital;
 
-import java.io.File;
 import java.util.List;
 
 public class HospitalAdapter extends ArrayAdapter<Hospital> {

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -18,7 +17,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.jorgechato.mybeat.Adapter.HospitalAdapter;
+import org.jorgechato.mybeat.adapter.HospitalAdapter;
 import org.jorgechato.mybeat.ItemHospital;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.base.Hospital;

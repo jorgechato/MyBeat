@@ -45,7 +45,8 @@
         </activity>
         <activity
             android:name="org.jorgechato.mybeat.Settings"
-            android:label="@string/title_activity_settings" >
+            android:label="@string/title_activity_settings"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <meta-data

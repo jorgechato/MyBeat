@@ -7,4 +7,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/listViewHospital"
         android:layout_gravity="center" />
+
 </FrameLayout>

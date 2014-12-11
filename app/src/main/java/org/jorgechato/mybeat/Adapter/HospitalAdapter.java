@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.base.Hospital;
 
+import java.io.File;
 import java.util.List;
 
 public class HospitalAdapter extends ArrayAdapter<Hospital> {
@@ -61,7 +62,7 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
         Hospital hospital = objects.get(position);
 
         Picasso.with(context).setDebugging(true);
-        Picasso.with(context).load(objects.get(position).getImageURL()).into(res.imageView);
+        Picasso.with(context).load(objects.get(position).getImageURL()).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).into(res.imageView);
 
         res.name.setText(hospital.getName());
         res.direction.setText(hospital.getDirection());

@@ -2,7 +2,9 @@ package org.jorgechato.mybeat;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.renderscript.Allocation;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.melnykov.fab.FloatingActionButton;
 import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 public class ItemHospital extends Activity implements View.OnClickListener{
     private String name,timetable,phone,description,email,direction,imageURL;
@@ -28,6 +31,7 @@ public class ItemHospital extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_hospital);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -58,10 +62,10 @@ public class ItemHospital extends Activity implements View.OnClickListener{
         imageSmall.addShadow();
 
         ImageView imageBackgrount = (ImageView) findViewById(R.id.imageBackground);
-        //todo blurBitmap
+
         Picasso.with(this).setDebugging(true);
-        Picasso.with(this).load(imageURL).into(imageBackgrount);
-        Picasso.with(this).load(imageURL).into(imageSmall);
+        Picasso.with(this).load(imageURL).transform(new BlurTransform(this)).into(imageBackgrount);
+        Picasso.with(this).load(imageURL).placeholder(R.drawable.ic_launcher).into(imageSmall);
 
         TextView textdescription = (TextView) findViewById(R.id.txtDescription);
         TextView texttimetable = (TextView) findViewById(R.id.txttimetable);
@@ -86,32 +90,43 @@ public class ItemHospital extends Activity implements View.OnClickListener{
                 return super.onOptionsItemSelected(item);
         }
     }
-    /**
-     * method recicled by Mario Viviani in https://plus.google.com/+MarioViviani/posts/fhuzYkji9zz
-     * @param bitmap
-     * @return
-     */
-    public Bitmap blurBitmap(Bitmap bitmap){
-        //Let's create an empty bitmap with the same size of the bitmap we want to blur
-        Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        //Instantiate a new Renderscript
-        RenderScript rs = RenderScript.create(getApplicationContext());
-        //Create an Intrinsic Blur Script using the Renderscript
-        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-        //Create the in/out Allocations with the Renderscript and the in/out bitmaps
-        Allocation allIn = Allocation.createFromBitmap(rs, bitmap);
-        Allocation allOut = Allocation.createFromBitmap(rs, outBitmap);
-        //Set the radius of the blur
-        blurScript.setRadius(8.f);
-        //Perform the Renderscript
-        blurScript.setInput(allIn);
-        blurScript.forEach(allOut);
-        //Copy the final bitmap created by the out Allocation to the outBitmap
-        allOut.copyTo(outBitmap);
-        //After finishing everything, we destroy the Renderscript.
-        rs.destroy();
+    public class BlurTransform implements Transformation {
+        RenderScript rs;
 
-        return outBitmap;
+        public BlurTransform(Context context) {
+            super();
+            rs = RenderScript.create(context);
+        }
+
+        @Override
+        public Bitmap transform(Bitmap bitmap) {
+            // Create another bitmap that will hold the results of the filter.
+            Bitmap blurredBitmap = Bitmap.createBitmap(bitmap);
+
+            // Allocate memory for Renderscript to work with
+            Allocation input = Allocation.createFromBitmap(rs, bitmap, Allocation.MipmapControl.MIPMAP_FULL, Allocation.USAGE_SHARED);
+            Allocation output = Allocation.createTyped(rs, input.getType());
+
+            // Load up an instance of the specific script that we want to use.
+            ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+            script.setInput(input);
+
+            // Set the blur radius
+            script.setRadius(10);
+
+            // Start the ScriptIntrinisicBlur
+            script.forEach(output);
+
+            // Copy the output to the blurred bitmap
+            output.copyTo(blurredBitmap);
+
+            return blurredBitmap;
+        }
+
+        @Override
+        public String key() {
+            return "blur";
+        }
     }
 
     @Override
@@ -124,3 +139,31 @@ public class ItemHospital extends Activity implements View.OnClickListener{
         startActivity(intent);
     }
 }
+
+/*
+ * method recicled by Mario Viviani in https://plus.google.com/+MarioViviani/posts/fhuzYkji9zz
+ * @param bitmap
+ * @return
+ */
+/*
+            //Let's create an empty bitmap with the same size of the bitmap we want to blur
+            Bitmap outBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            //Instantiate a new Renderscript
+            RenderScript rs = RenderScript.create(getApplicationContext());
+            //Create an Intrinsic Blur Script using the Renderscript
+            ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+            //Create the in/out Allocations with the Renderscript and the in/out bitmaps
+            Allocation allIn = Allocation.createFromBitmap(rs, bitmap);
+            Allocation allOut = Allocation.createFromBitmap(rs, outBitmap);
+            //Set the radius of the blur
+            blurScript.setRadius(8.f);
+            //Perform the Renderscript
+            blurScript.setInput(allIn);
+            blurScript.forEach(allOut);
+            //Copy the final bitmap created by the out Allocation to the outBitmap
+            allOut.copyTo(outBitmap);
+            //After finishing everything, we destroy the Renderscript.
+            rs.destroy();
+
+            return outBitmap;
+*/

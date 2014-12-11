@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -133,6 +134,8 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                     name = jsonArray.getJSONObject(i).getJSONObject("nombre").getString("content");
                     if (!jsonArray.getJSONObject(i).isNull("foto")){
                         imageURL = jsonArray.getJSONObject(i).getJSONObject("foto").optString("content");
+                    }else {
+                        imageURL = null;
                     }
                     if (!jsonArray.getJSONObject(i).getJSONObject("telefono").isNull("content")){
                         phone = jsonArray.getJSONObject(i).getJSONObject("telefono").getString("content");
@@ -162,7 +165,8 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
         protected void onCancelled() {
             super.onCancelled();
             adapter.clear();
-            //arrayListHospital = new ArrayList<>();
+            arrayListHospital = new ArrayList<Hospital>();
+            getActivity().setProgressBarIndeterminateVisibility(false);
         }
 
         @Override

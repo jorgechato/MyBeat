@@ -2,8 +2,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 <RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,50 +11,201 @@
     android:id="@+id/editlayout"
     android:background="@color/grey">
 
-
-    <ImageView
+    <RelativeLayout
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:id="@+id/editimage"
-        android:background="@android:color/black"
+        android:layout_height="302dp"
+        android:background="@drawable/shadow_box_text"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"/>
+        android:id="@+id/editimagelayout">
 
-    <ImageView
-        android:layout_width="57dp"
-        android:layout_height="57dp"
-        android:id="@+id/editprofileimage"
-        android:onClick="onClick"
-        android:background="#80000000"
-        android:src="@drawable/pencil"
-        android:layout_alignBottom="@+id/editimage"
-        android:layout_alignEnd="@+id/editimage"
-        android:padding="16dp"/>
-    <RelativeLayout
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:id="@+id/editimage"
+            android:background="@android:color/black"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:id="@+id/editprofileimage"
+            android:onClick="onClick"
+            android:background="#80000000"
+            android:src="@drawable/pencil"
+            android:layout_alignBottom="@+id/editimage"
+            android:layout_alignEnd="@+id/editimage"
+            android:padding="16dp"/>
+    </RelativeLayout>
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeedit"
-        android:layout_below="@+id/editimage"
+        android:orientation="horizontal"
+        android:layout_below="@+id/editimagelayout"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:background="@android:color/white"
+        android:padding="8dp"
+        android:background="@drawable/shadow_box_text"
         android:layout_marginTop="25dp">
-    <EditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp"
+            android:text="@string/name"
+            android:id="@+id/txtname"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editname"/>
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editname" />
+        android:id="@+id/relativeedit2"
+        android:layout_below="@+id/relativeedit"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:padding="8dp"
+        android:background="@drawable/shadow_box_text"
+        android:layout_marginTop="25dp"
+        android:gravity="bottom">
+
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/datePicker" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeedit3"
+        android:orientation="horizontal"
+        android:layout_below="@+id/relativeedit2"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:padding="8dp"
+        android:background="@drawable/shadow_box_text"
+        android:layout_marginTop="25dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp"
+            android:text="@string/weight"
+            android:id="@+id/txtweight"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editTextweight" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp"
+            android:text="Kg"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeedit4"
+        android:orientation="horizontal"
+        android:layout_below="@+id/relativeedit3"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:padding="8dp"
+        android:background="@drawable/shadow_box_text"
+        android:layout_marginTop="25dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp"
+            android:text="@string/height"
+            android:id="@+id/txtheight"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editTextheight" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp"
+            android:text="Cm"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="8dp"/>
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:padding="8dp"
+        android:id="@+id/editunitsglucose"
+        android:background="@drawable/shadow_box_text"
+        android:layout_below="@+id/relativeedit4"
+        android:layout_marginTop="25dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/glucoseunits"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/glucoseunitsmg"
+            android:textSize="18dp"
+            android:id="@+id/rbglucosemg" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="@string/glucoseunitsmmo"
+            android:id="@+id/rbglucosemmo" />
+    </RadioGroup>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="@string/saveprofile"
+        android:background="@drawable/shadow_box_text"
+        android:textColor="@color/accent"
         android:id="@+id/saveprofile"
         android:onClick="onClick"
-        android:layout_below="@+id/relativeedit"
-        android:layout_marginTop="25dp"/>
-
+        android:layout_below="@+id/editunitsglucose"
+        android:layout_margin="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>
 </ScrollView>

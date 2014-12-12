@@ -2,4 +2,9 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="grey">#EEEEEE</color>
+
+    <color name="primary_dark">#00695C</color>
+    <color name="primary">#00796B</color>
+    <color name="accent">#F50057</color>
+    <color name="GrayLight">#eeeeee</color>
 </resources>

@@ -25,5 +25,13 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
+    <string name="glucoseunitsmg">mg/dl</string>
+    <string name="glucoseunitsmmo">mmo/l</string>
+    <string name="glucoseunits">Unidades de glucosa</string>
+    <string name="saveprofile">Guardar</string>
+    <string name="weight">Peso</string>
+    <string name="name">Nombre</string>
+    <string name="height">Altura</string>
+    <string name="data_saved">Datos de perfil gusrdados</string>
 
 </resources>

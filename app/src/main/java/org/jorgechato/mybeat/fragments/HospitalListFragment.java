@@ -142,7 +142,7 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
                         phone = getResources().getString(R.string.no_phone);
                     }
 
-                    hospital = new Hospital(name,timetable,phone,description,direction, URLDecoder.decode(email),imageURL,longitude,latitude);
+                    hospital = new Hospital(name,timetable,phone,description,direction, URLDecoder.decode(email,"UTF-8"),imageURL,longitude,latitude);
                     arrayListHospital.add(hospital);
                 }
 

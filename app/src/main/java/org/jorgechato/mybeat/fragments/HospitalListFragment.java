@@ -17,6 +17,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jorgechato.mybeat.MainActivity;
 import org.jorgechato.mybeat.adapter.HospitalAdapter;
 import org.jorgechato.mybeat.ItemHospital;
 import org.jorgechato.mybeat.R;
@@ -35,9 +36,8 @@ import java.util.ArrayList;
 public class HospitalListFragment extends Fragment implements AdapterView.OnItemClickListener{
     private ListView listView;
     private ArrayList<Hospital> arrayListHospital;
-    private HospitalAdapter adapter;
+    public static HospitalAdapter ADAPTER;
 
-    private static final String JSONURL = "http://datos.gijon.es/doc/salud/centros-sanitarios.json";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group,
                              Bundle savedInstanceState){
@@ -45,18 +45,14 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
 
         listView = (ListView) view.findViewById(R.id.listViewHospital);
         listView.setOnItemClickListener(this);
-        arrayListHospital = new ArrayList<Hospital>();
-        adapter = new HospitalAdapter(getActivity(),R.layout.activity_hospital_adapter,arrayListHospital);
-        listView.setAdapter(adapter);
-
-        loadHospital();
+        ADAPTER = new HospitalAdapter(getActivity(),R.layout.activity_hospital_adapter,arrayListHospital);
+        listView.setAdapter(ADAPTER);
 
         return view;
     }
 
-    public void loadHospital(){
-        ThreadDownloadData threadData = new ThreadDownloadData();
-        threadData.execute(JSONURL);
+    public void setArrayListHospital(ArrayList<Hospital> arrayListHospital) {
+        this.arrayListHospital = arrayListHospital;
     }
 
     @Override
@@ -79,111 +75,5 @@ public class HospitalListFragment extends Fragment implements AdapterView.OnItem
         intent.putExtra("latitude",hospital.getLatitude());
 
         startActivity(intent);
-    }
-
-    public class ThreadDownloadData extends AsyncTask<String,Void,Void>{
-        private boolean error = false;
-
-        @Override
-        protected Void doInBackground(String... params) {
-            InputStream inputStream = null;
-            String results = null;
-            JSONObject jsonObject = null;
-            JSONArray jsonArray = null;
-
-            try {
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpPost = new HttpGet(params[0]);
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                inputStream = httpEntity.getContent();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder builder = new StringBuilder();
-                String line = null;
-
-                while ((line = reader.readLine()) != null)
-                    builder.append(line + "\n");
-
-                inputStream.close();
-                results = builder.toString();
-
-                jsonObject = new JSONObject(results);
-                jsonArray = jsonObject.getJSONObject("directorios").getJSONArray("directorio");
-
-                String name = null,timetable = null,phone = null,description = null,email = null,
-                        map = null,direction = null,imageURL = null;
-                float longitude = -1,latitude = -1;
-                Hospital hospital = null;
-
-                for (int i = 0; i<jsonArray.length() ; i++){
-                    email = jsonArray.getJSONObject(i).getString("correo-electronico");
-                    if (!jsonArray.getJSONObject(i).getJSONObject("descripcion").isNull("content"))
-                        description = jsonArray.getJSONObject(i).getJSONObject("descripcion").getString("content");
-                    direction = jsonArray.getJSONObject(i).getJSONArray("direccion").getString(0);
-                    timetable = jsonArray.getJSONObject(i).getString("horario");
-                    if (timetable.equals("{}"))
-                        timetable = getResources().getString(R.string.no_timetable);
-                    if (!jsonArray.getJSONObject(i).getJSONObject("localizacion").isNull("content")){
-                        map = jsonArray.getJSONObject(i).getJSONObject("localizacion").getString("content");
-                        String mapLocate[] = map.split(" ");
-                        longitude = Float.parseFloat(mapLocate[0]);
-                        latitude = Float.parseFloat(mapLocate[1]);
-                    }
-                    name = jsonArray.getJSONObject(i).getJSONObject("nombre").getString("content");
-                    if (!jsonArray.getJSONObject(i).isNull("foto")){
-                        imageURL = jsonArray.getJSONObject(i).getJSONObject("foto").optString("content");
-                    }else {
-                        imageURL = null;
-                    }
-                    if (!jsonArray.getJSONObject(i).getJSONObject("telefono").isNull("content")){
-                        phone = jsonArray.getJSONObject(i).getJSONObject("telefono").getString("content");
-                    }else {
-                        phone = getResources().getString(R.string.no_phone);
-                    }
-
-                    hospital = new Hospital(name,timetable,phone,description,direction, URLDecoder.decode(email,"UTF-8"),imageURL,longitude,latitude);
-                    arrayListHospital.add(hospital);
-                }
-
-            }catch (ClientProtocolException e) {
-                e.printStackTrace();
-                error = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-                error = true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                error = true;
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-            adapter.clear();
-            arrayListHospital = new ArrayList<Hospital>();
-            getActivity().setProgressBarIndeterminateVisibility(false);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... progress) {
-            super.onProgressUpdate(progress);
-            adapter.notifyDataSetChanged();
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            if (error) {
-                Toast.makeText(getActivity(), getResources().getString(R.string.error_load_json), Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            adapter.notifyDataSetChanged();
-            Toast.makeText(getActivity(), getResources().getString(R.string.json_loaded), Toast.LENGTH_SHORT).show();
-        }
     }
 }

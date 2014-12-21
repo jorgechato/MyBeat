@@ -28,8 +28,8 @@ public class Database extends SQLiteOpenHelper implements Constant{
         db.execSQL("CREATE TABLE " + TABLE + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PATH
                 + " TEXT NOT NULL, " + NAME + " TEXT NOT NULL," +
-                UNITS + " TEXT DEFAULT 'MGDL'," + DATE + " DATE DEFAULT CURRENTDATE," +
-                WEIGHT + " REAL DEFAULT 0," + HEIGHT + " REAL DEFAULT 0)");
+                UNITS + " TEXT DEFAULT 'mg/dl'," + DATE + " DATE DEFAULT CURRENTDATE," +
+                WEIGHT + " REAL DEFAULT 0," + HEIGHT + " INTEGER DEFAULT 0)");
 
     }
 
@@ -42,12 +42,13 @@ public class Database extends SQLiteOpenHelper implements Constant{
     public Cursor getUserData() {
         SQLiteDatabase db = this.getReadableDatabase();
 
+        // Lanza una consulta sobre la base de datos con claúsula FROM y ORDER BY
         Cursor cursor = db.query(TABLE, FROM_CURSOR, null, null, null, null, null);
 
         return cursor;
     }
 
-    public void changeUserData(int id, String path, String name, String unit, Date date, float weight, float heidht){
+    public void newUserData(String path, String name, String unit, Date date, float weight, int heidht){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -58,6 +59,20 @@ public class Database extends SQLiteOpenHelper implements Constant{
         values.put(WEIGHT, weight);
         values.put(HEIGHT, heidht);
 
-        db.update(TABLE, values, _ID + " = " + id, null);
+        db.insertOrThrow(TABLE, null, values);
+    }
+
+    public void changeUserData(String path, String name, String unit, Date date, float weight, int heidht){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(PATH, path);
+        values.put(NAME, name);
+        values.put(UNITS, unit);
+        values.put(DATE, date.toString());
+        values.put(WEIGHT, weight);
+        values.put(HEIGHT, heidht);
+
+        db.update(TABLE, values, _ID + " = 1", null);
     }
 }

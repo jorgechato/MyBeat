@@ -5,4 +5,16 @@
     android:paddingTop="0dp"
     android:paddingBottom="0dp" tools:context=".MainActivity"
     android:id="@+id/containerActivity">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:indeterminate="true"
+        android:layout_marginTop="-7dp"
+        android:padding="0dp"
+        android:layout_alignParentTop="true"
+        android:gravity = "top"
+        android:visibility="invisible" />
 </RelativeLayout>

@@ -79,10 +79,28 @@
         android:layout_marginTop="25dp"
         android:gravity="bottom">
 
-        <DatePicker
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/datePicker" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20dp"
+            android:text="@string/date"
+            android:id="@+id/txtdate"
+            android:onClick="onClick"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/editprofiledate"
+            android:onClick="onClick"
+            android:src="@drawable/pencil_grey"
+            android:layout_alignBottom="@+id/txtdate"
+            android:layout_alignEnd="@+id/txtdate"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -109,7 +127,7 @@
         <EditText
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editTextweight" />
 
@@ -173,7 +191,8 @@
         android:id="@+id/editunitsglucose"
         android:background="@drawable/shadow_box_text"
         android:layout_below="@+id/relativeedit4"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="25dp"
+        android:checkedButton="@+id/rbglucosemg">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

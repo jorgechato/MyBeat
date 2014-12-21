@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">MyBeat</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Ajustes</string>
     <string name="action_acercade">Acerca de</string>
     <string name="tab_profile">Mi perfil</string>
@@ -20,10 +19,10 @@
     <string name="direction">DIRECCIÓN</string>
     <string name="no_timetable">No hay datos del horario</string>
     <string name="no_phone">No hay teléfonos registrados</string>
-    <string name="title_activity_about">About</string>
+    <string name="title_activity_about">Acerca de</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Ajustes</string>
     <string name="title_activity_maps">Map</string>
     <string name="glucoseunitsmg">mg/dl</string>
     <string name="glucoseunitsmmo">mmo/l</string>
@@ -33,5 +32,6 @@
     <string name="name">Nombre</string>
     <string name="height">Altura</string>
     <string name="data_saved">Datos de perfil gusrdados</string>
+    <string name="date">Fecha de nacimiento</string>
 
 </resources>

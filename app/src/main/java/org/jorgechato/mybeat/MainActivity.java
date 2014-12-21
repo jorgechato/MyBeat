@@ -6,7 +6,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.jorgechato.mybeat.adapter.HospitalAdapter;
 import org.jorgechato.mybeat.base.Hospital;
 import org.jorgechato.mybeat.fragments.CommentsFragment;
 import org.jorgechato.mybeat.fragments.ControlFragment;
@@ -24,10 +23,10 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -46,13 +45,15 @@ public class MainActivity extends Activity {
     private String ERRORLOADJSON;
     private String JSONLOADED;
     private HospitalListFragment hospitalListFragment;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setProgressBarIndeterminateVisibility(Boolean.TRUE);
+        progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
+//        progressBar.setVisibility(View.INVISIBLE);
 
         arrayListHospital = new ArrayList<Hospital>();
 
@@ -141,7 +142,17 @@ public class MainActivity extends Activity {
         private boolean error = false;
 
         @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected Void doInBackground(String... params) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             InputStream inputStream = null;
             String results = null;
             JSONObject jsonObject = null;
@@ -230,12 +241,12 @@ public class MainActivity extends Activity {
             super.onProgressUpdate(progress);
             if (hospitalListFragment.ADAPTER != null)
                 hospitalListFragment.ADAPTER.notifyDataSetChanged();
-            setProgressBarIndeterminateVisibility(Boolean.FALSE);
         }
 
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            progressBar.setVisibility(View.INVISIBLE);
             if (error) {
                 Toast.makeText(MainActivity.this, ERRORLOADJSON, Toast.LENGTH_SHORT).show();
                 return;

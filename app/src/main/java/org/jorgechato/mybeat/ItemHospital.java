@@ -23,6 +23,8 @@ import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import org.jorgechato.mybeat.util.BlurTransform;
+
 public class ItemHospital extends Activity implements View.OnClickListener{
     private String name,timetable,phone,description,email,direction,imageURL;
     private float longitude,latitude;
@@ -64,7 +66,7 @@ public class ItemHospital extends Activity implements View.OnClickListener{
         ImageView imageBackgrount = (ImageView) findViewById(R.id.imageBackground);
 
         Picasso.with(this).setDebugging(true);
-        Picasso.with(this).load(imageURL).transform(new BlurTransform(this)).into(imageBackgrount);
+        Picasso.with(this).load(imageURL).transform(new BlurTransform(this,10)).into(imageBackgrount);
         Picasso.with(this).load(imageURL).placeholder(R.drawable.ic_launcher).into(imageSmall);
 
         TextView textdescription = (TextView) findViewById(R.id.txtDescription);
@@ -89,7 +91,7 @@ public class ItemHospital extends Activity implements View.OnClickListener{
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }/*
     public class BlurTransform implements Transformation {
         RenderScript rs;
 
@@ -127,7 +129,7 @@ public class ItemHospital extends Activity implements View.OnClickListener{
         public String key() {
             return "blur";
         }
-    }
+    }*/
 
     @Override
     public void onClick(View v) {

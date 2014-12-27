@@ -15,7 +15,8 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:id="@+id/header">
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="150dp"
@@ -53,6 +54,134 @@
                 android:layout_below="@+id/profilebackground"
                 android:layout_marginTop="12dp"
                 android:layout_marginLeft="25dp"/>
+            <!--etq-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:id="@+id/etq"
+                android:layout_below="@+id/profileimage">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".3"
+                    android:background="@drawable/shadow_box_text_90"
+                    android:layout_height="wrap_content"
+                    android:text="Día"
+                    android:textSize="22dp"
+                    android:padding="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:gravity="center" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".3"
+                    android:background="@drawable/shadow_box_text_90"
+                    android:layout_height="wrap_content"
+                    android:text="Semana"
+                    android:textSize="22dp"
+                    android:padding="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".3"
+                    android:background="@drawable/shadow_box_text_90"
+                    android:layout_height="wrap_content"
+                    android:text="Mes"
+                    android:textSize="22dp"
+                    android:padding="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+            </LinearLayout>
+            <!--show-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/arg"
+                android:layout_below="@+id/etq">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".3"
+                    android:background="@drawable/shadow_box_text"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="50dp"
+                    android:padding="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:gravity="center" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".3"
+                    android:background="@drawable/shadow_box_text"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="50dp"
+                    android:padding="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".3"
+                    android:background="@drawable/shadow_box_text"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="50dp"
+                    android:padding="10dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:gravity="center"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".025"/>
+            </LinearLayout>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/arg"
+                android:textColor="@android:color/white"
+                android:text="Glucosa"
+                android:background="@drawable/shadow_box_button"/>
         </RelativeLayout>
     </ScrollView>
+
 </FrameLayout>

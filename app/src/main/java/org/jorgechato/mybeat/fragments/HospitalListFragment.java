@@ -1,7 +1,6 @@
 package org.jorgechato.mybeat.fragments;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,29 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.jorgechato.mybeat.MainActivity;
 import org.jorgechato.mybeat.adapter.HospitalAdapter;
 import org.jorgechato.mybeat.ItemHospital;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.base.Hospital;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class HospitalListFragment extends Fragment implements AdapterView.OnItemClickListener{

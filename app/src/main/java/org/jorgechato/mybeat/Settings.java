@@ -81,6 +81,8 @@ public class Settings extends Activity implements View.OnClickListener {
 
         mAttacher = new PhotoViewAttacher(imageView);
 
+        if (cursor.getCount() == 0)
+            return;
         loadDatabase(cursor);
     }
 
@@ -185,8 +187,16 @@ public class Settings extends Activity implements View.OnClickListener {
             unit = "mmo/l";
         }
 
-        database.changeUserData(mediaFile.getAbsolutePath(), name, unit,
-                new java.sql.Date(time), weight, height);
+        Cursor cursor = database.getUserData();
+        cursor.moveToFirst();
+
+        if (cursor.getCount() == 0){
+            database.newUserData(mediaFile.getAbsolutePath(), name, unit,
+                    new java.sql.Date(time), weight, height);
+        }else {
+            database.changeUserData(mediaFile.getAbsolutePath(), name, unit,
+                    new java.sql.Date(time), weight, height);
+        }
     }
 
     private void storeImage(Bitmap image) {

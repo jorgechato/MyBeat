@@ -7,7 +7,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.jorgechato.mybeat.base.Hospital;
-import org.jorgechato.mybeat.fragments.CommentsFragment;
+import org.jorgechato.mybeat.database.Database;
 import org.jorgechato.mybeat.fragments.ControlFragment;
 import org.jorgechato.mybeat.fragments.HospitalListFragment;
 import org.jorgechato.mybeat.fragments.ProfileFragment;
@@ -46,6 +46,8 @@ public class MainActivity extends Activity {
     private String JSONLOADED;
     private HospitalListFragment hospitalListFragment;
     private ProgressBar progressBar;
+    private static Database database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         progressBar = (ProgressBar) this.findViewById(R.id.progressBar);
-//        progressBar.setVisibility(View.INVISIBLE);
 
         arrayListHospital = new ArrayList<Hospital>();
 
@@ -62,9 +63,15 @@ public class MainActivity extends Activity {
         ERRORLOADJSON = getResources().getString(R.string.error_load_json);
         JSONLOADED = getResources().getString(R.string.json_loaded);
 
+        database = new Database(this);
+
         loadHospital();
 
         startFragment();
+    }
+
+    public static Database getDatabase() {
+        return database;
     }
 
     private void tabSwipe(ActionBar actionBar) {
@@ -80,24 +87,24 @@ public class MainActivity extends Activity {
         ActionBar.Tab tabProfile= actionBar.newTab().setText(resources.getString(R.string.tab_profile));
         ActionBar.Tab tabControl= actionBar.newTab().setText(resources.getString(R.string.tab_control));
         ActionBar.Tab tabHospital= actionBar.newTab().setText(resources.getString(R.string.tab_hospital));
-        ActionBar.Tab tabComments= actionBar.newTab().setText(resources.getString(R.string.tab_comments));
+//        ActionBar.Tab tabComments= actionBar.newTab().setText(resources.getString(R.string.tab_comments));
 
         hospitalListFragment = new HospitalListFragment();
 
         Fragment fragmentProfile = new ProfileFragment();
         Fragment fragmentControl = new ControlFragment();
         Fragment fragmentHospital = hospitalListFragment;
-        Fragment fragmentComments = new CommentsFragment();
+//        Fragment fragmentComments = new CommentsFragment();
 
         tabProfile.setTabListener(new TabsListener(fragmentProfile));
         tabControl.setTabListener(new TabsListener(fragmentControl));
         tabHospital.setTabListener(new TabsListener(fragmentHospital));
-        tabComments.setTabListener(new TabsListener(fragmentComments));
+//        tabComments.setTabListener(new TabsListener(fragmentComments));
 
         actionBar.addTab(tabProfile,false);
         actionBar.addTab(tabControl,true);
         actionBar.addTab(tabHospital,false);
-        actionBar.addTab(tabComments,false);
+//        actionBar.addTab(tabComments,false);
 
         tabSwipe(actionBar);
         hospitalListFragment.setArrayListHospital(arrayListHospital);
@@ -148,11 +155,6 @@ public class MainActivity extends Activity {
 
         @Override
         protected Void doInBackground(String... params) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             InputStream inputStream = null;
             String results = null;
             JSONObject jsonObject = null;
@@ -253,7 +255,6 @@ public class MainActivity extends Activity {
             }
             if (hospitalListFragment.ADAPTER != null)
                 hospitalListFragment.ADAPTER.notifyDataSetChanged();
-            Toast.makeText(MainActivity.this, JSONLOADED, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pkmmte.view.CircularImageView;
 import com.squareup.picasso.Picasso;
 
+import org.jorgechato.mybeat.MainActivity;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.database.Database;
 import org.jorgechato.mybeat.util.BlurTransform;
@@ -34,11 +34,13 @@ public class ProfileFragment extends Fragment{
         return view;
     }
 
-    private void init(View view) {
-        Database database = new Database(getActivity());
-        Cursor cursor = database.getUserData();
-        cursor.moveToFirst();
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
 
+    private void init(View view) {
         profileimage = (CircularImageView) view.findViewById(R.id.profileimage);
         profileimage.setBorderColor(getResources().getColor(R.color.GrayLight));
         profileimage.setBorderWidth(8);
@@ -47,10 +49,17 @@ public class ProfileFragment extends Fragment{
         bigprofile = (ImageView) view.findViewById(R.id.profilebackground);
         txtname = (TextView) view.findViewById(R.id.profilename);
 
-        loadData(cursor);
+        loadData();
     }
 
-    private void loadData(Cursor cursor) {
+    private void loadData() {
+        Database database = new Database(getActivity());
+        Cursor cursor = database.getUserData();
+        cursor.moveToFirst();
+
+        if (cursor.getCount() == 0)
+            return;
+
         Picasso.with(getActivity()).load(new File(cursor.getString(1)))
                 .error(R.drawable.ic_launcher).into(profileimage);
 

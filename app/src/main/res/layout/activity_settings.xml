@@ -125,7 +125,7 @@
             android:layout_marginRight="8dp"/>
 
         <EditText
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
@@ -164,7 +164,7 @@
             android:layout_marginRight="8dp"/>
 
         <EditText
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"

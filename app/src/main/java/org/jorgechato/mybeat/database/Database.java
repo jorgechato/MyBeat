@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.jorgechato.mybeat.base.Control;
 import org.jorgechato.mybeat.util.Constant;
 
 import java.sql.Date;
@@ -15,9 +16,13 @@ import java.sql.Date;
  */
 public class Database extends SQLiteOpenHelper implements Constant{
     private static final String DATABASE_NAME = "mybeatdiabetes.db";
-    private static final int DATABATE_V = 1;
+    private static final int DATABATE_V = 2;
+
+    private static String ORDER_BY = DATE + " DESC";
+    private static String ORDER_BY_CONTROL = DATEC + " DESC";
 
     private static String[] FROM_CURSOR = {_ID, PATH, NAME, UNITS, DATE, WEIGHT, HEIGHT };
+    private static String[] FROM_CURSOR_CONTROL = {_ID, DATEC, TIME, GLUCOSE, NOTE, INSULIN, DAYTIME };
 
     public Database(Context context) {
         super(context,DATABASE_NAME, null, DATABATE_V);
@@ -31,19 +36,36 @@ public class Database extends SQLiteOpenHelper implements Constant{
                 UNITS + " TEXT DEFAULT 'mg/dl'," + DATE + " DATE DEFAULT CURRENTDATE," +
                 WEIGHT + " REAL DEFAULT 0," + HEIGHT + " INTEGER DEFAULT 0)");
 
+        db.execSQL("CREATE TABLE " + CONTROL + "("
+                + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATEC
+                + " DATE DEFAULT CURRENTDATE, " + TIME + " TIME DEFAULT CURRENTTIME," +
+                GLUCOSE + " INTEGER DEFAULT 0," + NOTE + " VARCHAR(150)," +
+                INSULIN + " INTEGER DEFAULT 0," + DAYTIME + " VARCHAR(150) )");
+    }
+    public void deleteControl(Control control) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(CONTROL, _ID + " = " + control.getId(), null);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + CONTROL);
         onCreate(db);
     }
 
     public Cursor getUserData() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        // Lanza una consulta sobre la base de datos con claúsula FROM y ORDER BY
         Cursor cursor = db.query(TABLE, FROM_CURSOR, null, null, null, null, null);
+
+        return cursor;
+    }
+
+    public Cursor getControl() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(CONTROL, FROM_CURSOR_CONTROL, null, null, null, null, ORDER_BY_CONTROL);
 
         return cursor;
     }
@@ -60,6 +82,20 @@ public class Database extends SQLiteOpenHelper implements Constant{
         values.put(HEIGHT, heidht);
 
         db.insertOrThrow(TABLE, null, values);
+    }
+
+    public void newControl(Control control){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(DATEC, control.getDate().toString());
+        values.put(TIME, control.getTime().toString());
+        values.put(GLUCOSE, control.getGlucose());
+        values.put(NOTE, control.getNote());
+        values.put(INSULIN, control.getInsulin());
+        values.put(DAYTIME, control.getDaytime());
+
+        db.insertOrThrow(CONTROL, null, values);
     }
 
     public void changeUserData(String path, String name, String unit, Date date, float weight, int heidht){

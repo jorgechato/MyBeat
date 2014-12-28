@@ -1,13 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/prueba"
-        android:layout_gravity="center_horizontal" />
-</LinearLayout>
+        android:text="140"
+        android:id="@+id/glucosecontrol"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/background_material_dark"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="id"
+        android:id="@+id/idcontrol" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="120"
+            android:textColor="@color/accent"
+            android:id="@+id/insulinecontrol"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/accent"
+            android:text="@string/unit"
+            android:id="@+id/textView3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout"
+        android:layout_toEndOf="@+id/glucosecontrol">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/daytimecontrol"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/background_material_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginRight="8dp"
+            android:id="@+id/timecontrol" />
+        </LinearLayout>
+</RelativeLayout>

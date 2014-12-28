@@ -33,18 +33,46 @@ public class Database extends SQLiteOpenHelper implements Constant{
         db.execSQL("CREATE TABLE " + TABLE + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PATH
                 + " TEXT NOT NULL, " + NAME + " TEXT NOT NULL," +
-                UNITS + " TEXT DEFAULT 'mg/dl'," + DATE + " DATE DEFAULT CURRENTDATE," +
+                UNITS + " TEXT DEFAULT 'mg/dl'," + DATE + " DATE DEFAULT CURRENT_DATE," +
                 WEIGHT + " REAL DEFAULT 0," + HEIGHT + " INTEGER DEFAULT 0)");
 
         db.execSQL("CREATE TABLE " + CONTROL + "("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATEC
-                + " DATE DEFAULT CURRENTDATE, " + TIME + " TIME DEFAULT CURRENTTIME," +
+                + " DATE DEFAULT CURRENT_DATE, " + TIME + " TIME DEFAULT CURRENT_TIME," +
                 GLUCOSE + " INTEGER DEFAULT 0," + NOTE + " VARCHAR(150)," +
                 INSULIN + " INTEGER DEFAULT 0," + DAYTIME + " VARCHAR(150) )");
     }
-    public void deleteControl(Control control) {
+
+    public Cursor dayAverage(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE " + DATEC + " = CURRENT_DATE";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        return cursor;
+    }
+
+    public Cursor weekAverage(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE " + DATEC + " = CURRENT_DATE";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        return cursor;
+    }
+
+    public Cursor monthAverage(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE " + DATEC + " = CURRENT_DATE";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        return cursor;
+    }
+
+    public void deleteControl(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(CONTROL, _ID + " = " + control.getId(), null);
+        db.delete(CONTROL, _ID + " = " + id, null);
     }
 
     @Override
@@ -88,8 +116,10 @@ public class Database extends SQLiteOpenHelper implements Constant{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DATEC, control.getDate().toString());
-        values.put(TIME, control.getTime().toString());
+        if (control.getDate() != null)
+            values.put(DATEC, control.getDate().toString());
+        if (control.getTime() != null)
+            values.put(TIME, control.getTime().toString());
         values.put(GLUCOSE, control.getGlucose());
         values.put(NOTE, control.getNote());
         values.put(INSULIN, control.getInsulin());

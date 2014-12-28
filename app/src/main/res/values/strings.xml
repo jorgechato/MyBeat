@@ -33,5 +33,12 @@
     <string name="height">Altura</string>
     <string name="data_saved">Datos de perfil gusrdados</string>
     <string name="date">Fecha de nacimiento</string>
+    <string name="delete_control">Eliminar control</string>
+    <string name="unit">Unidades</string>
+    <string name="title_activity_add_control">AddControl</string>
+    <string name="new_control">Nuevo control</string>
+    <string name="day">Día</string>
+    <string name="week">Semana</string>
+    <string name="month">Mes</string>
 
 </resources>

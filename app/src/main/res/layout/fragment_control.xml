@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="org.jorgechato.mybeat.fragments.ControlFragment"
     android:layout_margin="0dp"
-    android:padding="0dp">
+    android:padding="0dp"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    >
 
 
     <ListView
@@ -10,4 +12,18 @@
         android:layout_height="fill_parent"
         android:id="@+id/controlLW"
         android:layout_gravity="center" />
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/plus"
+        android:onClick="onClick"
+        fab:fab_colorNormal="@color/accent"
+        fab:fab_colorPressed="@color/accent"
+        fab:fab_colorRipple="@color/GrayLight"
+        fab:fab_shadow="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|right" />
 </FrameLayout>

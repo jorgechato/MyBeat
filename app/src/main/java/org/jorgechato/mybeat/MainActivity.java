@@ -6,6 +6,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jorgechato.mybeat.base.Control;
 import org.jorgechato.mybeat.base.Hospital;
 import org.jorgechato.mybeat.database.Database;
 import org.jorgechato.mybeat.fragments.ControlFragment;
@@ -65,9 +66,16 @@ public class MainActivity extends Activity {
 
         database = new Database(this);
 
+        testDatabase();
+
         loadHospital();
 
         startFragment();
+    }
+
+    private void testDatabase() {
+        Control control = new Control("","Desayuno",null,null,98,7);
+        database.newControl(control);
     }
 
     public static Database getDatabase() {
@@ -256,5 +264,10 @@ public class MainActivity extends Activity {
             if (hospitalListFragment.ADAPTER != null)
                 hospitalListFragment.ADAPTER.notifyDataSetChanged();
         }
+    }
+
+    public void onClick(View view){
+        Intent intent = new Intent(this, AddControl.class);
+        startActivity(intent);
     }
 }

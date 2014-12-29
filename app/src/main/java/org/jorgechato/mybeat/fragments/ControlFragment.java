@@ -60,6 +60,7 @@ public class ControlFragment extends Fragment implements ListView.OnItemLongClic
         adapter = new ControlCursorAdapter(getActivity(),cursor,false);
 
         lv = (ListView) view.findViewById(R.id.controlLW);
+        lv.setDividerHeight(0);
         lv.setAdapter(adapter);
         lv.setOnItemLongClickListener(this);
     }

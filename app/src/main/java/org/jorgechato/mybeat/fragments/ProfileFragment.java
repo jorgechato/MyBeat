@@ -99,9 +99,9 @@ public class ProfileFragment extends Fragment{
             return;
 
         Picasso.with(getActivity()).load(new File(cursor.getString(1)))
-                .error(R.drawable.ic_launcher).into(profileimage);
+                .error(R.drawable.default_blur).into(profileimage);
 
-        Picasso.with(getActivity()).load(new File(cursor.getString(1)))
+        Picasso.with(getActivity()).load(new File(cursor.getString(1))).error(R.drawable.default_blur)
                 .transform(new BlurTransform(getActivity(),25)).into(bigprofile);
 
         txtname.setText(cursor.getString(2));

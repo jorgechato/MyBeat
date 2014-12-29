@@ -19,7 +19,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
     private static final int DATABATE_V = 2;
 
     private static String ORDER_BY = DATE + " DESC";
-    private static String ORDER_BY_CONTROL = DATEC + " DESC";
+    private static String ORDER_BY_CONTROL ="DATETIME("+ DATEC +","+ TIME + ") DESC";
 
     private static String[] FROM_CURSOR = {_ID, PATH, NAME, UNITS, DATE, WEIGHT, HEIGHT };
     private static String[] FROM_CURSOR_CONTROL = {_ID, DATEC, TIME, GLUCOSE, NOTE, INSULIN, DAYTIME };

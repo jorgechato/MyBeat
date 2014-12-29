@@ -2,8 +2,43 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    android:layout_margin="0dp">
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1.5px"
+        android:layout_marginTop="8dp"
+        android:id="@+id/separator"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAlignment="center"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="dd/MM/yyyy"
+        android:id="@+id/datecontrol"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/datecontrol">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,4 +108,5 @@
             android:layout_marginRight="8dp"
             android:id="@+id/timecontrol" />
         </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

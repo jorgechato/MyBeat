@@ -58,8 +58,9 @@ public class ItemHospital extends Activity implements View.OnClickListener{
 
         ImageView imageBackgrount = (ImageView) findViewById(R.id.imageBackground);
 
-        Picasso.with(this).load(imageURL).transform(new BlurTransform(this,10)).into(imageBackgrount);
-        Picasso.with(this).load(imageURL).placeholder(R.drawable.ic_launcher).into(imageSmall);
+        Picasso.with(this).load(imageURL).placeholder(R.drawable.default_blur).error(R.drawable.default_blur).
+                transform(new BlurTransform(this,10)).into(imageBackgrount);
+        Picasso.with(this).load(imageURL).placeholder(R.drawable.default_blur).error(R.drawable.default_blur).into(imageSmall);
 
         TextView textdescription = (TextView) findViewById(R.id.txtDescription);
         TextView texttimetable = (TextView) findViewById(R.id.txttimetable);

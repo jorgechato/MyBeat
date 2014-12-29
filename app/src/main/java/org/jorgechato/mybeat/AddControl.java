@@ -93,7 +93,7 @@ public class AddControl extends Activity {
 
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         date.setText(df.format(new java.util.Date(calendarDate)));
-        df = new SimpleDateFormat("HH:mm:ss");
+        df = new SimpleDateFormat("kk:mm:ss");
         time.setText(df.format(new Time(calendarTime)));
     }
 
@@ -180,16 +180,20 @@ public class AddControl extends Activity {
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int min = c.get(Calendar.MINUTE);
 
-            return new TimePickerDialog(getActivity(),null,hour,min,true);
+            return new TimePickerDialog(getActivity(),this,hour,min,true);
         }
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            time.setText(hourOfDay + ":" + minute + ":" + Calendar.SECOND);
             Calendar calendar = Calendar.getInstance();
-            calendar.set(hourOfDay,minute,Calendar.SECOND);
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+//            calendar.set(Calendar.SECOND, Calendar.SECOND);
+
+            DateFormat df = new SimpleDateFormat("kk:mm:ss");
+
+            time.setText(df.format(new Time(calendar.getTimeInMillis())));
             calendarTime = calendar.getTimeInMillis();
-            System.out.println(calendarTime);
         }
     }
 }

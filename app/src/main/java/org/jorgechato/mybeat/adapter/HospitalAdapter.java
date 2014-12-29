@@ -60,7 +60,8 @@ public class HospitalAdapter extends ArrayAdapter<Hospital> {
 
         Hospital hospital = objects.get(position);
 
-        Picasso.with(context).load(objects.get(position).getImageURL()).placeholder(R.drawable.ic_launcher).error(R.drawable.ic_launcher).into(res.imageView);
+        Picasso.with(context).load(objects.get(position).getImageURL()).placeholder(R.drawable.default_blur)
+                .error(R.drawable.default_blur).into(res.imageView);
 
         res.name.setText(hospital.getName());
         res.direction.setText(hospital.getDirection());

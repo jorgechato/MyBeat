@@ -6,6 +6,8 @@ Android app, MyBeat diabetes is designed to manage blood insulin levels. App des
 
 ## Clone and run project
 
+-Compatible with api 15 (Android 4.0.3 or higher is required)
+
 ### APK:
 
--Omega apk available in [MyBeat_diabetes_o.11.12.14](https://github.com/orggue/MyBeat/blob/master/app/app-release.apk)
+-Beta apk available in [MyBeat_diabetes_b.29.12.14](https://github.com/orggue/MyBeat/blob/master/app/app-release.apk)

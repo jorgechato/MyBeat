@@ -29,11 +29,12 @@ public class ControlFragment extends Fragment implements ListView.OnItemLongClic
     private Database database;
     private ListView lv;
     private ControlCursorAdapter adapter;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group,
                              Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_control,group,false);
+        view = inflater.inflate(R.layout.fragment_control,group,false);
 
         ListView listView = (ListView) view.findViewById(R.id.controlLW);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_control);
@@ -42,6 +43,12 @@ public class ControlFragment extends Fragment implements ListView.OnItemLongClic
         loadControlData(view);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadControlData(view);
     }
 
     private void loadControlData(View view) {

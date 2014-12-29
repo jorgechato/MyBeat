@@ -2,14 +2,39 @@ package org.jorgechato.mybeat;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.ActionBarActivity;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import org.jorgechato.mybeat.base.Control;
+import org.jorgechato.mybeat.database.Database;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class AddControl extends Activity {
+    private Database database;
+    private Spinner spinner;
+    private EditText note,glucose,insulin;
+    private TextView unit;
+    private static TextView date,time;
+    private static long calendarDate,calendarTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +44,68 @@ public class AddControl extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.new_control);
+
+        init();
+        initSpinner();
+        loadunit();
+    }
+
+    private void loadunit() {
+        database = new Database(this);
+        Cursor cursor = database.getUserData();
+        cursor.moveToFirst();
+
+        unit.setText(cursor.getString(3));
+    }
+
+    private void init() {
+        Calendar c = Calendar.getInstance();
+        calendarDate = c.getTimeInMillis();
+        calendarTime = c.getTimeInMillis();
+
+        unit = (TextView) findViewById(R.id.addunit);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        note = (EditText) findViewById(R.id.addnote);
+        note.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                note.setFocusable(true);
+                note.setFocusableInTouchMode(true);
+                note.requestFocus();
+            }
+        });
+        glucose = (EditText) findViewById(R.id.addglucose);
+        insulin = (EditText) findViewById(R.id.addinsulin);
+        date = (TextView) findViewById(R.id.adddate);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDate();
+            }
+        });
+        time = (TextView) findViewById(R.id.addtime);
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTime();
+            }
+        });
+
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        date.setText(df.format(new java.util.Date(calendarDate)));
+        df = new SimpleDateFormat("HH:mm:ss");
+        time.setText(df.format(new Time(calendarTime)));
+    }
+
+    private void initSpinner() {
+        String [] arraySpinner = new String[]{
+                getString(R.string.breakfast),getString(R.string.lunch),
+                getString(R.string.dinner),getString(R.string.other)
+        };
+
+        ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item, arraySpinner);
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -29,6 +116,80 @@ public class AddControl extends Activity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void onClick(View view){
+        database = new Database(this);
+
+        if (glucose.getText().toString().equals("") ||
+                insulin.getText().toString().equals("")){
+            glucose.setHint(R.string.need);
+            insulin.setHint(R.string.need);
+            insulin.setHintTextColor(getResources().getColor(R.color.accent));
+            glucose.setHintTextColor(getResources().getColor(R.color.accent));
+        }else {
+
+            Control control = new Control(note.getText().toString(), spinner.getSelectedItem().toString(),
+                    new Date(calendarDate), new Time(calendarTime),
+                    Integer.parseInt(String.valueOf(glucose.getText())), Integer.parseInt(String.valueOf(insulin.getText())));
+            database.newControl(control);
+            this.finish();
+        }
+    }
+
+    private void showDate() {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), getResources().getString(R.string.date));
+    }
+
+    private void showTime() {
+        TimePickerFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), getResources().getString(R.string.date));
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            date.setText(day + "/" + month + "/" + year);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+            calendarDate = calendar.getTimeInMillis();
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int min = c.get(Calendar.MINUTE);
+
+            return new TimePickerDialog(getActivity(),null,hour,min,true);
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            time.setText(hourOfDay + ":" + minute + ":" + Calendar.SECOND);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(hourOfDay,minute,Calendar.SECOND);
+            calendarTime = calendar.getTimeInMillis();
+            System.out.println(calendarTime);
         }
     }
 }

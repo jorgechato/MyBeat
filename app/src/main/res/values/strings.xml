@@ -36,9 +36,18 @@
     <string name="delete_control">Eliminar control</string>
     <string name="unit">Unidades</string>
     <string name="title_activity_add_control">AddControl</string>
-    <string name="new_control">Nuevo control</string>
+    <string name="new_control">Añadir</string>
     <string name="day">Día</string>
     <string name="week">Semana</string>
     <string name="month">Mes</string>
+    <string name="insulin">Insulina</string>
+    <string name="note">Nota</string>
+    <string name="glucose">Glucosa</string>
+    <string name="need">No olvidar</string>
+
+    <string name="breakfast">Desayuno</string>
+    <string name="lunch">Almuerzo</string>
+    <string name="dinner">Cena</string>
+    <string name="other">Otro</string>
 
 </resources>

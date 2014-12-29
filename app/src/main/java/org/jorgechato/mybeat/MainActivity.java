@@ -66,16 +66,9 @@ public class MainActivity extends Activity {
 
         database = new Database(this);
 
-        testDatabase();
-
         loadHospital();
 
         startFragment();
-    }
-
-    private void testDatabase() {
-        Control control = new Control("","Desayuno",null,null,98,7);
-        database.newControl(control);
     }
 
     public static Database getDatabase() {

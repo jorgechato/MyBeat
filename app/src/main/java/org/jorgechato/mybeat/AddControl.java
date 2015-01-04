@@ -55,7 +55,11 @@ public class AddControl extends Activity {
         Cursor cursor = database.getUserData();
         cursor.moveToFirst();
 
-        unit.setText(cursor.getString(3));
+        if (cursor.getCount() == 0) {
+            unit.setText("mg/dl");
+        }else {
+            unit.setText(cursor.getString(3));
+        }
     }
 
     private void init() {

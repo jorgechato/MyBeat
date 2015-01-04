@@ -25,7 +25,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="false"
-                android:src="@drawable/ic_launcher"/>
+                android:src="@drawable/default_blur"/>
 
             <com.pkmmte.view.CircularImageView
                 android:layout_width="115dp"
@@ -41,7 +41,7 @@
                 app:shadow="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/default_blur" />
 
             <TextView
                 android:layout_width="wrap_content"

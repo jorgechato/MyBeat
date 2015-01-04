@@ -6,8 +6,8 @@ Android app, MyBeat diabetes is designed to manage blood insulin levels. App des
 
 ## Clone and run project
 
--Compatible with api 15 (Android 4.0.3 or higher is required)
+-Compatible with api 15 (Android 4.0.3 or higher is required) android 15-16-17 still have problems with blur effect
 
 ### APK:
 
--Beta apk available in [MyBeat_diabetes_b.29.12.14](https://github.com/orggue/MyBeat/blob/master/app/app-release.apk)
+-Beta apk available in [MyBeat_diabetes_b.4.1.15](https://betas.to/rr68PxzR)

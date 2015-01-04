@@ -55,7 +55,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
     public Cursor weekAverage(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE " + DATEC + " = CURRENT_DATE";
+        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE strftime('%W', " +DATEC + ") = strftime('%W', date('now'))";
         Cursor cursor = db.rawQuery(SQL, null);
 
         return cursor;
@@ -64,7 +64,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
     public Cursor monthAverage(){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE " + DATEC + " = CURRENT_DATE";
+        String SQL = "SELECT AVG(" + GLUCOSE + ")FROM " + CONTROL + " WHERE strftime('%m', " +DATEC + ") = strftime('%m', date('now'))";
         Cursor cursor = db.rawQuery(SQL, null);
 
         return cursor;

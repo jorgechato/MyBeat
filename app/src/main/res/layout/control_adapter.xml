@@ -39,7 +39,20 @@
         android:layout_margin="4dp"
         android:layout_alignParentTop="false"
         android:layout_below="@+id/datecontrol">
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="000"
+            android:id="@+id/idsize"
+            android:textAlignment="center"
+            android:textSize="40dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="#00000000"
+            android:layout_alignParentLeft="true" />
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -92,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/linearLayout"
-        android:layout_toEndOf="@+id/glucosecontrol">
+        android:layout_toEndOf="@+id/idsize">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

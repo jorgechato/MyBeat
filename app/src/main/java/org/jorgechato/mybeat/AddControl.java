@@ -129,11 +129,11 @@ public class AddControl extends Activity {
             insulin.setHintTextColor(getResources().getColor(R.color.accent));
             glucose.setHintTextColor(getResources().getColor(R.color.accent));
         }else {
-
             Control control = new Control(note.getText().toString(), spinner.getSelectedItem().toString(),
                     new Date(calendarDate), new Time(calendarTime),
                     Integer.parseInt(String.valueOf(glucose.getText())), Integer.parseInt(String.valueOf(insulin.getText())));
             database.newControl(control);
+
             this.finish();
         }
     }
@@ -153,7 +153,6 @@ public class AddControl extends Activity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
@@ -175,7 +174,6 @@ public class AddControl extends Activity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int min = c.get(Calendar.MINUTE);
@@ -188,7 +186,6 @@ public class AddControl extends Activity {
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             calendar.set(Calendar.MINUTE, minute);
-//            calendar.set(Calendar.SECOND, Calendar.SECOND);
 
             DateFormat df = new SimpleDateFormat("kk:mm:ss");
 

@@ -16,9 +16,16 @@ repositories {
 
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'mybeat'
+            keyPassword '2015**Luz'
+            storeFile file('/home/jorge/signed jks/myBeatDiabetes.jks')
+            storePassword '2015Luz'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.0"
-
     defaultConfig {
         applicationId "org.jorgechato.mybeat"
         minSdkVersion 15
@@ -30,6 +37,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {

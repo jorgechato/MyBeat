@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Nombre"
+                android:text="@string/name"
                 android:textSize="23dp"
                 android:id="@+id/profilename"
                 android:layout_toEndOf="@+id/profileimage"

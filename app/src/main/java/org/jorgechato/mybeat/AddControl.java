@@ -8,6 +8,9 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +38,7 @@ public class AddControl extends Activity {
     private TextView unit;
     private static TextView date,time;
     private static long calendarDate,calendarTime;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,9 @@ public class AddControl extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.new_control);
+
+        Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        mp = MediaPlayer.create(getBaseContext(),uri);
 
         init();
         initSpinner();
@@ -137,6 +144,9 @@ public class AddControl extends Activity {
                     new Date(calendarDate), new Time(calendarTime),
                     Integer.parseInt(String.valueOf(glucose.getText())), Integer.parseInt(String.valueOf(insulin.getText())));
             database.newControl(control);
+
+            mp.setLooping(false);
+            mp.start();
 
             this.finish();
         }

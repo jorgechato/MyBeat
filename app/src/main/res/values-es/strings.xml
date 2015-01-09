@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyBeat</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_acercade">Acerca de</string>
+    <string name="tab_profile">Mi perfil</string>
+    <string name="tab_comments">Comentarios</string>
+    <string name="tab_hospital">Hospitales</string>
+    <string name="tab_control">Control</string>
+    <string name="error_load_json">Error al cargar datos</string>
+    <string name="json_loaded">Datos cargados</string>
+    <string name="title_activity_hospital_adapter">HospitalAdapter</string>
+    <string name="title_activity_item_hospital">ItemHospital</string>
+    <string name="description">DESCRIPCIÓN</string>
+    <string name="phone">TELÉFONO</string>
+    <string name="timetable">HORARIO</string>
+    <string name="email">CORREO ELECTRÓNICO</string>
+    <string name="direction">DIRECCIÓN</string>
+    <string name="no_timetable">No hay datos del horario</string>
+    <string name="no_phone">No hay teléfonos registrados</string>
+    <string name="title_activity_about">Acerca de</string>
+    <string name="dummy_button">JORGE CHATO</string>
+    <string name="dummy_content">MYBEAT\ndiabetes</string>
+    <string name="title_activity_settings">Ajustes</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="glucoseunitsmg">mg/dl</string>
+    <string name="glucoseunitsmmo">mmo/l</string>
+    <string name="glucoseunits">Unidades de glucosa</string>
+    <string name="saveprofile">Guardar</string>
+    <string name="weight">Peso</string>
+    <string name="name">Nombre</string>
+    <string name="height">Altura</string>
+    <string name="data_saved">Datos de perfil guardados</string>
+    <string name="date">dd/MM/yyyy</string>
+    <string name="delete_control">Eliminar control</string>
+    <string name="unit">Unidades</string>
+    <string name="title_activity_add_control">AddControl</string>
+    <string name="new_control">Añadir</string>
+    <string name="day">Día</string>
+    <string name="week">Semana</string>
+    <string name="month">Mes</string>
+    <string name="insulin">Insulina</string>
+    <string name="note">Nota</string>
+    <string name="glucose">Glucosa</string>
+    <string name="need">No olvidar</string>
+
+    <string name="breakfast">Desayuno</string>
+    <string name="lunch">Almuerzo</string>
+    <string name="dinner">Cena</string>
+    <string name="other">Otro</string>
+
+</resources>

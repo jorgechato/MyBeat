@@ -7,4 +7,7 @@
     <color name="primary">#00796B</color>
     <color name="accent">#F50057</color>
     <color name="GrayLight">#eeeeee</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="tab_highlight">#F50057</color>
 </resources>

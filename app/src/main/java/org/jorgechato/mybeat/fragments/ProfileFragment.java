@@ -101,8 +101,8 @@ public class ProfileFragment extends Fragment{
         Picasso.with(getActivity()).load(new File(cursor.getString(1)))
                 .error(R.drawable.default_blur).into(profileimage);
 
-        Picasso.with(getActivity()).load(new File(cursor.getString(1))).error(R.drawable.default_blur)
-                .transform(new BlurTransform(getActivity(),25)).into(bigprofile);
+        Picasso.with(getActivity()).load(new File(cursor.getString(1)))
+                .error(R.drawable.default_blur).transform(new BlurTransform(getActivity(),25)).into(bigprofile);
 
         txtname.setText(cursor.getString(2));
     }

@@ -22,9 +22,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Cache;
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.*;
 
 import org.jorgechato.mybeat.database.Database;
+import org.jorgechato.mybeat.fragments.ProfileFragment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -197,6 +201,7 @@ public class Settings extends Activity implements View.OnClickListener {
             database.changeUserData(mediaFile.getAbsolutePath(), name, unit,
                     new java.sql.Date(time), weight, height);
         }
+
     }
 
     private void storeImage(Bitmap image) {

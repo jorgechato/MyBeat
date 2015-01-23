@@ -1,10 +1,7 @@
 package org.jorgechato.mybeat.fragments;
 
-import static android.provider.BaseColumns._ID;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -17,8 +14,6 @@ import android.widget.TextView;
 
 import com.melnykov.fab.FloatingActionButton;
 
-import org.jorgechato.mybeat.AddControl;
-import org.jorgechato.mybeat.ItemHospital;
 import org.jorgechato.mybeat.MainActivity;
 import org.jorgechato.mybeat.R;
 import org.jorgechato.mybeat.adapter.ControlCursorAdapter;

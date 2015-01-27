@@ -3,6 +3,13 @@ MyBeat
 _Artwork by [Jorge Chato](https://github.com/orggue)_
 
 Android app, MyBeat diabetes is designed to manage blood insulin levels. App designed for diabetics.
+![alt tag](https://raw.githubusercontent.com/orggue/MyBeat/master/01.png)
+![alt tag](https://raw.githubusercontent.com/orggue/MyBeat/master/02.png)
+![alt tag](https://raw.githubusercontent.com/orggue/MyBeat/master/03.png)
+![alt tag](https://raw.githubusercontent.com/orggue/MyBeat/master/04.png)
+![alt tag](https://raw.githubusercontent.com/orggue/MyBeat/master/05.png)
+![alt tag](https://raw.githubusercontent.com/orggue/MyBeat/master/06.png)
+
 
 ## Clone and run project
 

@@ -21,8 +21,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.jorgechato.mybeat.base.Control;
 import org.jorgechato.mybeat.database.Database;
+import org.json.JSONObject;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -39,6 +50,8 @@ public class AddControl extends Activity {
     private static TextView date,time;
     private static long calendarDate,calendarTime;
     private MediaPlayer mp;
+    private HttpClient client;
+    private HttpPost post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +68,11 @@ public class AddControl extends Activity {
         init();
         initSpinner();
         loadunit();
+    }
+
+    private void connection() {
+        client = new DefaultHttpClient();
+        post = new HttpPost("http://192.168.1.11:5000/api/controls/");
     }
 
     private void loadunit() {
@@ -150,13 +168,65 @@ public class AddControl extends Activity {
             Control control = new Control(note.getText().toString(), spinner.getSelectedItem().toString(),
                     spinnertype.getSelectedItem().toString(),new Date(calendarDate), new Time(calendarTime),
                     Integer.parseInt(String.valueOf(glucose.getText())), Integer.parseInt(String.valueOf(insulin.getText())));
-            database.newControl(control);
+            database.newControl(postToAPI(control));
 
             mp.setLooping(false);
             mp.start();
 
             this.finish();
         }
+    }
+
+    /**
+     * {
+         "control" : {
+             "date" : "2015-05-23T07:23:03.593Z",
+             "time" : "2015-05-23T07:23:03.593Z",
+             "glucose" : 140,
+             "insulin" : 12,
+             "type" : "quickly",
+             "daytime" : "breakfast",
+             "note" : "something"
+             }
+         }
+     * @param control
+     * @return
+     */
+    private Control postToAPI(Control control) {
+        try {
+            JSONObject controlsJson = new JSONObject();
+            JSONObject controlJson = new JSONObject();
+            controlJson.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(control.getDate().getTime()));
+            controlJson.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(control.getTime().getTime()));
+            controlJson.put("glucose", control.getGlucose());
+            controlJson.put("insulin", control.getInsulin());
+            controlJson.put("type", control.getType());
+            controlJson.put("daytime", control.getDaytime());
+            controlJson.put("note", control.getNote());
+
+            controlsJson.put("control", controlJson);
+            System.out.println(controlsJson.toString());
+
+            connection();
+
+//            StringEntity se = new StringEntity(controlsJson.toString());
+            post.setEntity(new StringEntity(controlsJson.toString(), "UTF-8"));
+            post.setHeader("Accept", "application/json");
+            post.setHeader("Content-type", "application/json");
+//            System.out.println(post.getEntity().toString());
+
+            HttpResponse response = client.execute(post);
+
+//            String responseText = EntityUtils.toString(response.getEntity());
+//            JSONObject json = new JSONObject(responseText);
+//            System.out.println(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        control.setId(45);
+
+        return control;
     }
 
     private void showDate() {

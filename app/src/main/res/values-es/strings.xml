@@ -50,4 +50,7 @@
     <string name="dinner">Cena</string>
     <string name="other">Otro</string>
 
+    <string name="quickly">Rapida</string>
+    <string name="slow">Lenta</string>
+
 </resources>

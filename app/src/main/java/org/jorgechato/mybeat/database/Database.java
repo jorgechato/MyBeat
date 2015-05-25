@@ -22,7 +22,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
     private static String ORDER_BY_CONTROL ="DATETIME("+ DATEC +","+ TIME + ") DESC";
 
     private static String[] FROM_CURSOR = {_ID, PATH, NAME, UNITS, DATE, WEIGHT, HEIGHT };
-    private static String[] FROM_CURSOR_CONTROL = {_ID, DATEC, TIME, GLUCOSE, NOTE, INSULIN, DAYTIME };
+    private static String[] FROM_CURSOR_CONTROL = {_ID, DATEC, TIME, GLUCOSE, NOTE, INSULIN, DAYTIME, TYPE };
 
     public Database(Context context) {
         super(context,DATABASE_NAME, null, DATABATE_V);
@@ -40,7 +40,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATEC
                 + " DATE DEFAULT CURRENT_DATE, " + TIME + " TIME DEFAULT CURRENT_TIME," +
                 GLUCOSE + " INTEGER DEFAULT 0," + NOTE + " VARCHAR(150)," +
-                INSULIN + " INTEGER DEFAULT 0," + DAYTIME + " VARCHAR(150) )");
+                INSULIN + " INTEGER DEFAULT 0,"+ TYPE + " VARCHAR(150)," + DAYTIME + " VARCHAR(150) )");
     }
 
     public Cursor dayAverage(){
@@ -124,6 +124,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
         values.put(NOTE, control.getNote());
         values.put(INSULIN, control.getInsulin());
         values.put(DAYTIME, control.getDaytime());
+        values.put(TYPE, control.getDaytime());
 
         db.insertOrThrow(CONTROL, null, values);
     }

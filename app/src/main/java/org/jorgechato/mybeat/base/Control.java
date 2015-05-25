@@ -7,18 +7,19 @@ import java.sql.Time;
  * Created by jorge on 27/12/14.
  */
 public class Control {
-    private String note, daytime;
+    private String note, daytime,type;
     private Date date;
     private Time time;
     private int glucose, insulin, id;
 
-    public Control(String note, String daytime, Date date, Time time, int glucose, int insulin) {
+    public Control(String note, String daytime, String type, Date date, Time time, int glucose, int insulin) {
         this.note = note;
         this.daytime = daytime;
         this.date = date;
         this.time = time;
         this.glucose = glucose;
         this.insulin = insulin;
+        this.type = type;
     }
 
     public int getId() {
@@ -75,5 +76,13 @@ public class Control {
 
     public void setInsulin(int insulin) {
         this.insulin = insulin;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

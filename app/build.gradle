@@ -18,10 +18,10 @@ repositories {
 android {
     signingConfigs {
         config {
-            keyAlias 'mybeat'
-            keyPassword '2015**Luz'
-            storeFile file('/home/jorge/signed jks/myBeatDiabetes.jks')
-            storePassword '2015Luz'
+            keyAlias 'orggue'
+            keyPassword '2012Oscuro'
+            storeFile file('/home/orggue/.signed/mybeat.jks')
+            storePassword '2012Oscuro'
         }
     }
     compileSdkVersion 21

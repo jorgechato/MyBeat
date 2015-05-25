@@ -33,7 +33,7 @@ import java.util.Calendar;
 
 public class AddControl extends Activity {
     private Database database;
-    private Spinner spinner;
+    private Spinner spinner,spinnertype;
     private EditText note,glucose,insulin;
     private TextView unit;
     private static TextView date,time;
@@ -76,6 +76,7 @@ public class AddControl extends Activity {
 
         unit = (TextView) findViewById(R.id.addunit);
         spinner = (Spinner) findViewById(R.id.spinner);
+        spinnertype = (Spinner) findViewById(R.id.spinnertype);
         note = (EditText) findViewById(R.id.addnote);
         note.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,10 +114,16 @@ public class AddControl extends Activity {
                 getString(R.string.breakfast),getString(R.string.lunch),
                 getString(R.string.dinner),getString(R.string.other)
         };
+        String [] arraySpinnerType = new String[]{
+                getString(R.string.quickly),getString(R.string.slow)
+        };
 
         ArrayAdapter adapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_dropdown_item, arraySpinner);
         spinner.setAdapter(adapter);
+        ArrayAdapter adaptertype = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_dropdown_item, arraySpinnerType);
+        spinnertype.setAdapter(adaptertype);
     }
 
     @Override
@@ -141,7 +148,7 @@ public class AddControl extends Activity {
             glucose.setHintTextColor(getResources().getColor(R.color.accent));
         }else {
             Control control = new Control(note.getText().toString(), spinner.getSelectedItem().toString(),
-                    new Date(calendarDate), new Time(calendarTime),
+                    spinnertype.getSelectedItem().toString(),new Date(calendarDate), new Time(calendarTime),
                     Integer.parseInt(String.valueOf(glucose.getText())), Integer.parseInt(String.valueOf(insulin.getText())));
             database.newControl(control);
 

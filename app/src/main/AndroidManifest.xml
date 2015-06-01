@@ -26,7 +26,7 @@
         android:name="com.google.android.maps.v2.API_KEY"
         android:value="AIzaSyCfNmdT3dbxirAjn4pLZAH1qG203PmpZc0" />
 
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--<android:uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 
     <application
         android:allowBackup="true"

@@ -51,8 +51,7 @@ public class ControlCursorAdapter extends CursorAdapter {
 
         Date datadate = Date.valueOf(cursor.getString(1));
         date.setText(df.format(datadate.getTime()));
-
-        id.setText(cursor.getString(0));
+        id.setText(cursor.getString(8));
         glucose.setText(cursor.getString(3));
         insuline.setText(cursor.getString(5));
         time.setText(cursor.getString(2));

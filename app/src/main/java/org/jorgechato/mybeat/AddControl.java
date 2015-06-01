@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -34,6 +36,7 @@ import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.jorgechato.mybeat.base.Control;
+import org.jorgechato.mybeat.base.Hospital;
 import org.jorgechato.mybeat.database.Database;
 import org.json.JSONObject;
 
@@ -41,6 +44,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -163,8 +167,8 @@ public class AddControl extends Activity {
             Control control = new Control(note.getText().toString(), spinner.getSelectedItem().toString(),
                     spinnertype.getSelectedItem().toString(),new Date(calendarDate), new Time(calendarTime),
                     Integer.parseInt(String.valueOf(glucose.getText())), Integer.parseInt(String.valueOf(insulin.getText())));
-            database.newControl(control);
-            postToAPI(control);
+            PostToAPI postToAPI = new PostToAPI();
+            postToAPI.execute(control);
             mp.setLooping(false);
             mp.start();
 
@@ -184,68 +188,67 @@ public class AddControl extends Activity {
              "note" : "something"
              }
          }
-     * @param control
-     * @return
      */
-    private void postToAPI(Control control) {
-        try {
-            JSONObject controlsJson = new JSONObject();
-            JSONObject controlJson = new JSONObject();
-            controlJson.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(control.getDate().getTime()));
-            controlJson.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(control.getTime().getTime()));
-            controlJson.put("glucose", control.getGlucose());
-            controlJson.put("insulin", control.getInsulin());
-            controlJson.put("type", control.getType());
-            controlJson.put("daytime", control.getDaytime());
-            controlJson.put("note", control.getNote());
+    public class PostToAPI extends AsyncTask<Control,Void,Control> {
+        private boolean error = false;
 
-            controlsJson.put("control", controlJson);
-            System.out.println(controlsJson.toString());
-            /**
-             *
-             */
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost("http://192.168.1.144:5000/api/controls");
-            StringEntity entity = new StringEntity(controlsJson.toString());
-            entity.setContentType("application/json;charset=UTF-8");
-            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-            //Setting the content type is very important
-//            entity.setContentEncoding(HTTP.UTF_8);
-//            entity.setContentType("application/json");
-            httpPost.setEntity(entity);
+        @Override
+        protected void onPreExecute() {
 
-            //Execute and get the response.
-            HttpResponse response = httpClient.execute(httpPost);
-            /**
-             *
-             */
-
-//            HttpPost post = new HttpPost("http://192.168.1.144:5000/api/controls/");
-//            post.setHeader("Accept", "application/json");
-//            post.setHeader("Content-type", "application/json");
-////            StringEntity se = new StringEntity(controlsJson.toString());
-//            StringEntity entity = new StringEntity(controlsJson.toString(), HTTP.UTF_8);
-//            entity.setContentType("application/json");
-//
-//            post.setEntity(entity);
-//            post.addHeader("Accept", "application/json");
-//            post.addHeader("Content-type", "application/json");
-////            System.out.println(post.getEntity().toString());
-//
-//            HttpClient client = new DefaultHttpClient();
-//            HttpResponse response = client.execute(post);
-//            Log.d("HTTP", "HTTP: OK");
-
-//            String responseText = EntityUtils.toString(response.getEntity());
-//            JSONObject json = new JSONObject(responseText);
-//            System.out.println(json);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-//        control.setId(45);
+        @Override
+        protected Control doInBackground(Control... params) {
+            Control control = params[0];
+            try {
+                JSONObject controlsJson = new JSONObject();
+                JSONObject controlJson = new JSONObject();
+                controlJson.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(control.getDate()));
+                controlJson.put("time", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(control.getTime()));
+                controlJson.put("glucose", control.getGlucose());
+                controlJson.put("insulin", control.getInsulin());
+                controlJson.put("type", control.getType());
+                controlJson.put("daytime", control.getDaytime());
+                controlJson.put("note", control.getNote());
 
-//        return control;
+                controlsJson.put("control", controlJson);
+
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost("http://192.168.1.11:5000/api/controls");
+                StringEntity entity = new StringEntity(controlsJson.toString());
+                entity.setContentType("application/json;charset=UTF-8");
+                entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
+                httpPost.setEntity(entity);
+
+                //Execute and get the response.
+                HttpResponse response = httpClient.execute(httpPost);
+
+                //Get response to a json
+                String responseText = EntityUtils.toString(response.getEntity());
+                JSONObject json = new JSONObject(responseText);
+                control.setId(json.getJSONObject("control").getString("id"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return control;
+        }
+
+        @Override
+        protected void onPostExecute(Control control) {
+            super.onPostExecute(control);
+            database.newControl(control);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... progress) {
+            super.onProgressUpdate(progress);
+        }
+
     }
 
     private void showDate() {

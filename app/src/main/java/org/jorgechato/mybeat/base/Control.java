@@ -7,10 +7,10 @@ import java.sql.Time;
  * Created by jorge on 27/12/14.
  */
 public class Control {
-    private String note, daytime,type;
+    private String note, daytime,type,id;
     private Date date;
     private Time time;
-    private int glucose, insulin, id;
+    private int glucose, insulin;
 
     public Control(String note, String daytime, String type, Date date, Time time, int glucose, int insulin) {
         this.note = note;
@@ -22,12 +22,13 @@ public class Control {
         this.type = type;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+        System.out.println("id en setid: " + id);
     }
 
     public String getNote() {

@@ -22,7 +22,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
     private static String ORDER_BY_CONTROL ="DATETIME("+ DATEC +","+ TIME + ") DESC";
 
     private static String[] FROM_CURSOR = {_ID, PATH, NAME, UNITS, DATE, WEIGHT, HEIGHT };
-    private static String[] FROM_CURSOR_CONTROL = {_ID, DATEC, TIME, GLUCOSE, NOTE, INSULIN, DAYTIME, TYPE };
+    private static String[] FROM_CURSOR_CONTROL = {_ID, DATEC, TIME, GLUCOSE, NOTE, INSULIN, DAYTIME, TYPE, TOKEN};
 
     public Database(Context context) {
         super(context,DATABASE_NAME, null, DATABATE_V);
@@ -40,7 +40,7 @@ public class Database extends SQLiteOpenHelper implements Constant{
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATEC
                 + " DATE DEFAULT CURRENT_DATE, " + TIME + " TIME DEFAULT CURRENT_TIME," +
                 GLUCOSE + " INTEGER DEFAULT 0," + NOTE + " VARCHAR(150)," +
-                INSULIN + " INTEGER DEFAULT 0,"+ TYPE + " VARCHAR(150)," + DAYTIME + " VARCHAR(150) )");
+                INSULIN + " INTEGER DEFAULT 0,"+ TYPE + " VARCHAR(150)," + DAYTIME + " VARCHAR(150),"+ TOKEN + " VARCHAR(150))");
     }
 
     public Cursor dayAverage(){
@@ -70,9 +70,9 @@ public class Database extends SQLiteOpenHelper implements Constant{
         return cursor;
     }
 
-    public void deleteControl(int id) {
+    public void deleteControl(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(CONTROL, _ID + " = " + id, null);
+        db.delete(CONTROL, TOKEN + " LIKE '" + id + "'", null);
     }
 
     @Override
@@ -116,15 +116,18 @@ public class Database extends SQLiteOpenHelper implements Constant{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        if (control.getDate() != null)
+        if (control.getDate() != null) {
             values.put(DATEC, control.getDate().toString());
-        if (control.getTime() != null)
+        }
+        if (control.getTime() != null) {
             values.put(TIME, control.getTime().toString());
+        }
         values.put(GLUCOSE, control.getGlucose());
         values.put(NOTE, control.getNote());
         values.put(INSULIN, control.getInsulin());
         values.put(DAYTIME, control.getDaytime());
         values.put(TYPE, control.getDaytime());
+        values.put(TOKEN, control.getId());
 
         db.insertOrThrow(CONTROL, null, values);
     }

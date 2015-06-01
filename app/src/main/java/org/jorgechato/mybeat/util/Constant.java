@@ -24,5 +24,6 @@ public interface Constant extends BaseColumns {
     public static final String INSULIN = "insulin";
     public static final String DAYTIME = "daytime";
     public static final String TYPE = "type";
+    public static final String TOKEN = "token";
 
 }
